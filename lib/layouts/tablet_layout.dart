@@ -1,5 +1,6 @@
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/main.dart';
+import 'package:code_judge_teacher/pages/add_or_edit_exercise_page.dart';
 import 'package:code_judge_teacher/pages/settings_page.dart';
 import 'package:code_judge_teacher/ui_elements/my_list_items.dart';
 import 'package:code_judge_teacher/ui_elements/my_navigation_bar.dart';
@@ -48,6 +49,7 @@ class _MobileLayoutState extends State<TabletLayout> {
   }
 }
 
+// Exercise section
 class TabletExercisePage extends StatelessWidget{
   TabletExercisePage({super.key});
 
@@ -89,13 +91,15 @@ class TabletExercisePage extends StatelessWidget{
         icon: Icon(Icons.add_rounded),
         label: Text(appLocalizations.newExercise), // New
         onPressed: () {
-          // TODO Open layout to add an exercise
+          // Open a page to add a new exercise
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(isEditingAnExercise: false)));
         },
       ),
     );
   }
 }
 
+// Seubmissions section
 class TabletSubmissionPage extends StatelessWidget{
   TabletSubmissionPage({super.key});
 
