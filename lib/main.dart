@@ -1,7 +1,9 @@
+import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/layouts/desktop_layout.dart';
 import 'package:code_judge_teacher/layouts/mobile_layout.dart';
 import 'package:code_judge_teacher/layouts/tablet_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,9 +26,19 @@ class MyApp extends StatelessWidget {
     );
 
     return MaterialApp(
+      // Apply the theme
       title: 'CodeJudge',
       theme: lightTheme,
       darkTheme: darkTheme,
+      // Apply settings & language
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        AppLocalizations.delegate
+      ],
+      supportedLocales: const [Locale('en'), Locale('de')],
+      locale: null,
       home: HomepageLayoutHandler(),
     );
   }
