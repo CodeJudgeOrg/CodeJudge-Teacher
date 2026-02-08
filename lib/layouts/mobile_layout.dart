@@ -1,5 +1,6 @@
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/main.dart';
+import 'package:code_judge_teacher/pages/settings_page.dart';
 import 'package:code_judge_teacher/ui_elements/my_list_items.dart';
 import 'package:code_judge_teacher/ui_elements/my_navigation_bar.dart';
 import 'package:code_judge_teacher/utils/exercise_datamodell.dart';
@@ -38,7 +39,8 @@ class _MobileLayoutState extends State<MobileLayout> {
             selectedIndexInNavigationBar = index;
           });
         } else {
-          //TODO Open settings
+          // Open settings
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
         }
       },
       items: getNavigationBarItems(context),
@@ -63,7 +65,7 @@ class MobileExercisePage extends StatelessWidget{
 
     return Scaffold(
       // Display a list of exercises
-      body: Expanded(
+      body: Positioned.fill(
         child: ListView.separated(
           padding: const EdgeInsets.all(8),
           itemCount: items.length,
@@ -107,7 +109,7 @@ class MobileSubmissionPage extends StatelessWidget{
 
     return Scaffold(
       // Display a list of exercises
-      body: Expanded(
+      body: Positioned.fill(
         child: ListView.separated(
           padding: const EdgeInsets.all(8),
           itemCount: items.length,
