@@ -115,7 +115,7 @@ class DesktopSubmissionPage extends StatelessWidget{
       // Display a list of exercises
       body: Positioned.fill(
         child: GridView.count(
-          crossAxisCount: 3,
+          crossAxisCount: 5,
           padding: const EdgeInsets.all(16),
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
