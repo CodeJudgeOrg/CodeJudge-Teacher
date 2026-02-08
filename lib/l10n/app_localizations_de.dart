@@ -12,7 +12,46 @@ class AppLocalizationsDe extends AppLocalizations {
   String get submissions => 'Abgaben';
 
   @override
-  String get exercises => 'Exercises';
+  String get exercises => 'Übungen';
+
+  @override
+  String get noteDifficultyLevel => 'Schwierigkeitsgrad: ';
+
+  @override
+  String get newExercise => 'Neu';
+
+  @override
+  String get addExercise => 'Neue Übung hinzufügen';
+
+  @override
+  String get editExercise => 'Eine Übung bearbeiten';
+
+  @override
+  String get hintEnterName => 'Name:';
+
+  @override
+  String get hintEnterDescription => 'Beschreibung:';
+
+  @override
+  String get hintEnterTask => 'Aufgabenstellung:';
+
+  @override
+  String get hintEnterSolution => 'Lösung:';
+
+  @override
+  String get selectDifficultyLevel => 'Schwierigkeitsgrad:';
+
+  @override
+  String get simpleLevel => 'Anfänger';
+
+  @override
+  String get mediumLevel => 'Fortgeschrittener';
+
+  @override
+  String get difficultLevel => 'Profi';
+
+  @override
+  String get hintEnterHint => 'Hinweis:';
 
   @override
   String get settings => 'Einstellungen';

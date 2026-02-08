@@ -107,6 +107,84 @@ abstract class AppLocalizations {
   /// **'Exercises'**
   String get exercises;
 
+  /// No description provided for @noteDifficultyLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level of difficulty: '**
+  String get noteDifficultyLevel;
+
+  /// No description provided for @newExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get newExercise;
+
+  /// No description provided for @addExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new exercise'**
+  String get addExercise;
+
+  /// No description provided for @editExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit an exercise'**
+  String get editExercise;
+
+  /// No description provided for @hintEnterName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name:'**
+  String get hintEnterName;
+
+  /// No description provided for @hintEnterDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description:'**
+  String get hintEnterDescription;
+
+  /// No description provided for @hintEnterTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Task:'**
+  String get hintEnterTask;
+
+  /// No description provided for @hintEnterSolution.
+  ///
+  /// In en, this message translates to:
+  /// **'Solution:'**
+  String get hintEnterSolution;
+
+  /// No description provided for @selectDifficultyLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level of difficulty:'**
+  String get selectDifficultyLevel;
+
+  /// No description provided for @simpleLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner'**
+  String get simpleLevel;
+
+  /// No description provided for @mediumLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Intermediate'**
+  String get mediumLevel;
+
+  /// No description provided for @difficultLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Professional'**
+  String get difficultLevel;
+
+  /// No description provided for @hintEnterHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Hint:'**
+  String get hintEnterHint;
+
   /// No description provided for @settings.
   ///
   /// In en, this message translates to:

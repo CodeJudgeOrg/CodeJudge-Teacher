@@ -4,6 +4,20 @@
   "submissions":"Submissions",
 
   "exercises": "Exercises",
+  "noteDifficultyLevel": "Level of difficulty: ",
+  "newExercise": "New",
+
+  "addExercise": "Add a new exercise",
+  "editExercise": "Edit an exercise",
+  "hintEnterName": "Name:",
+  "hintEnterDescription": "Description:",
+  "hintEnterTask": "Task:",
+  "hintEnterSolution": "Solution:",
+  "selectDifficultyLevel": "Level of difficulty:",
+  "simpleLevel": "Beginner",
+  "mediumLevel": "Intermediate",
+  "difficultLevel":"Professional",
+  "hintEnterHint": "Hint:",
 
   "settings": "Settings",
   "themeMode": "Theme Mode:",

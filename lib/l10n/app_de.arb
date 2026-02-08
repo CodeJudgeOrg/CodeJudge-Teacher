@@ -3,7 +3,21 @@
 
   "submissions":"Abgaben",
 
-  "exercises": "Exercises",
+  "exercises": "Übungen",
+  "noteDifficultyLevel": "Schwierigkeitsgrad: ",
+  "newExercise": "Neu",
+
+  "addExercise": "Neue Übung hinzufügen",
+  "editExercise": "Eine Übung bearbeiten",
+  "hintEnterName": "Name:",
+  "hintEnterDescription": "Beschreibung:",
+  "hintEnterTask": "Aufgabenstellung:",
+  "hintEnterSolution": "Lösung:",
+  "selectDifficultyLevel": "Schwierigkeitsgrad:",
+  "simpleLevel": "Anfänger",
+  "mediumLevel": "Fortgeschrittener",
+  "difficultLevel":"Profi",
+  "hintEnterHint": "Hinweis:",
 
   "settings": "Einstellungen",
   "themeMode": "Modus des Themas:",
