@@ -1,0 +1,22 @@
+{
+  "@@locale": "en",
+
+  "submissions":"Submissions",
+
+  "exercises": "Exercises",
+
+  "settings": "Settings",
+  "themeMode": "Theme Mode:",
+  "system": "System",
+  "lightMode": "Light",
+  "darkMode": "Dark",
+  "localisationMode": "Language:",
+  "localeEnglish": "English",
+  "localeGerman": "German",
+  "aboutThisButton": "About this project",
+  "reportABugButton": "Report a bug",
+  "requestAFeatureButton": "Request a feature",
+  "seeLicenseButton": "See the license",
+  "seeReleasesButton": "See all releases",
+  "aboutMeButton": "About the developer"
+}

@@ -1,0 +1,22 @@
+{
+  "@@locale": "de",
+
+  "submissions":"Abgaben",
+
+  "exercises": "Exercises",
+
+  "settings": "Einstellungen",
+  "themeMode": "Modus des Themas:",
+  "system": "System",
+  "lightMode": "Hell",
+  "darkMode": "Dunkel",
+  "localisationMode": "Sprache:",
+  "localeEnglish": "Englisch",
+  "localeGerman": "Deutsch",
+  "aboutThisButton": "Über dieses Projekt",
+  "reportABugButton": "Einen Bug melden",
+  "requestAFeatureButton": "Ein Feature beantragen",
+  "seeLicenseButton": "Lizenz ansehen",
+  "seeReleasesButton": "Alle Versionen ansehen",
+  "aboutMeButton": "Über den Entwickler"
+}
