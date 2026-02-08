@@ -18,7 +18,7 @@ class _MobileLayoutState extends State<MobileLayout> {
   Widget getSelectedPage() {
     switch (selectedIndexInNavigationBar) {
       case 0:
-        return Placeholder();
+        return MobileSubmissionPage();
       case 1:
         return MobileExercisePage();
       default:
@@ -90,3 +90,46 @@ class MobileExercisePage extends StatelessWidget{
   }
 }
 
+class MobileSubmissionPage extends StatelessWidget{
+  MobileSubmissionPage({super.key});
+
+  final List<ExerciseDatamodell> items = [
+    ExerciseDatamodell(name: "Abgabe1", description: "Test1", task: "task", solution: "solution", difficultyLevel: 1),
+    ExerciseDatamodell(name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
+    ExerciseDatamodell(name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
+    ExerciseDatamodell(name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
+    ExerciseDatamodell(name: "Test3", description: "Test3", task: "task", solution: "solution", difficultyLevel: 3),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+
+    return Scaffold(
+      // Display a list of exercises
+      body: Expanded(
+        child: ListView.separated(
+          padding: const EdgeInsets.all(8),
+          itemCount: items.length,
+          separatorBuilder: (context, index) => const SizedBox(height: 8),
+          itemBuilder: (context, index) {
+            return MyMobileItem(
+              title: items[index].name,
+              note: appLocalizations.noteDifficultyLevel + items[index].difficultyLevel.toString(),
+              onTap: (){
+                // TODO Open editor
+              }
+            );
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.add_rounded),
+        label: Text(appLocalizations.newExercise), // New
+        onPressed: () {
+          // TODO Open layout to add an exercise
+        },
+      ),
+    );
+  }
+}
