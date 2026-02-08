@@ -30,19 +30,19 @@ class SettingsPage extends StatelessWidget {
               trailing: SizedBox(
                 width: 86,
                 child: DropdownButtonHideUnderline(
-                child: DropdownButton<ThemeMode>(
-                  focusNode: themeFocusNode,
-                  value: currentMode,
-                  onChanged: (mode) {
-                    settingsController.applyTheme(mode!);
-                    FocusScope.of(context).requestFocus(FocusNode());
-                  },
-                  items: [
-                    DropdownMenuItem(value: ThemeMode.system, child: Text(appLocalizations.system)), // System
-                    DropdownMenuItem(value: ThemeMode.light, child: Text(appLocalizations.lightMode)), // Light
-                    DropdownMenuItem(value: ThemeMode.dark, child: Text(appLocalizations.darkMode)), // Dark
-                  ],
-                ),
+                  child: DropdownButton<ThemeMode>(
+                    focusNode: themeFocusNode,
+                    value: currentMode,
+                    onChanged: (mode) {
+                      settingsController.applyTheme(mode!);
+                      FocusScope.of(context).requestFocus(FocusNode());
+                    },
+                    items: [
+                      DropdownMenuItem(value: ThemeMode.system, child: Text(appLocalizations.system)), // System
+                      DropdownMenuItem(value: ThemeMode.light, child: Text(appLocalizations.lightMode)), // Light
+                      DropdownMenuItem(value: ThemeMode.dark, child: Text(appLocalizations.darkMode)), // Dark
+                    ],
+                  ),
                 ),
               ),
             ),
