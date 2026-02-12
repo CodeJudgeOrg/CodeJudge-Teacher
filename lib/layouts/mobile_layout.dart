@@ -125,13 +125,6 @@ class MobileSubmissionPage extends StatelessWidget{
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.add_rounded),
-        label: Text(appLocalizations.newExercise), // New
-        onPressed: () {
-          // TODO Open layout to add an exercise
-        },
-      ),
     );
   }
 }
