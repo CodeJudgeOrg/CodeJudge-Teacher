@@ -1,28 +1,41 @@
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/ui_elements/my_edit_text.dart';
+import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:flutter/material.dart';
 
 class AddOrEditExercisePage extends StatelessWidget{
   final bool isEditingAnExercise;
+  final int id;
+
   const AddOrEditExercisePage({
     super.key,
     required this.isEditingAnExercise,
+    required this.id,
   });
 
   @override
   Widget build(BuildContext context) {
+    final CodeJudgeTeacherDB db = CodeJudgeTeacherDB();
+
     // Pick the correct layout
     if (isEditingAnExercise) {
       return EditExerciseLayout();
     } else {
-      return AddExerciseLayout();
+      return AddExerciseLayout(db: db, id: id);
     }
   }
 }
 
 // Displayed if the user adds a new exercise
 class AddExerciseLayout extends StatefulWidget{
-  const AddExerciseLayout({super.key});
+  final CodeJudgeTeacherDB db;
+  final int id;
+
+  const AddExerciseLayout({
+    super.key,
+    required this.db,
+    required this.id,
+  });
 
   @override
   State<AddExerciseLayout> createState() => _AddExerciseLayoutState();
@@ -69,7 +82,11 @@ class _AddExerciseLayoutState extends State<AddExerciseLayout> {
                   Expanded(
                     child: MyEditText(
                       hint: appLocalizations.hintEnterName, // "Name:"
-                      controller: nameController,
+                      onInputDone: (value) {
+                        // Edit the name in the db
+                        widget.db.updateExerciseName(value, widget.id);
+                        // TODO Add it to the list using a provider
+                      },
                     ),
                   ),
                   SizedBox(
@@ -102,19 +119,15 @@ class _AddExerciseLayoutState extends State<AddExerciseLayout> {
               ),
               MyEditText(
                 hint: appLocalizations.hintEnterDescription, // "Description:"
-                controller: descriptionController
               ),
               MyEditText(
                 hint: appLocalizations.hintEnterTask, // "Task:"
-                controller: taskController
               ),
               MyEditText(
                 hint: appLocalizations.hintEnterSolution, // "Solution:"
-                controller: solutionController
               ),
               MyEditText(
                 hint: appLocalizations.hintEnterHint, // "Hint:"
-                controller: hintController,
               ),
             ],
           )
