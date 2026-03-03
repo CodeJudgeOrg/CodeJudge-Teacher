@@ -52,11 +52,11 @@ class DesktopExercisePage extends StatelessWidget{
   DesktopExercisePage({super.key});
 
   final List<ExerciseDatamodell> items = [
-    ExerciseDatamodell(name: "Test1", description: "Test1", task: "task", solution: "solution", difficultyLevel: 1),
-    ExerciseDatamodell(name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(name: "Test3", description: "Test3", task: "task", solution: "solution", difficultyLevel: 3),
+    ExerciseDatamodell(id: 1, name: "Abgabe1", description: "Test1", task: "task", solution: "solution", difficultyLevel: 1),
+    ExerciseDatamodell(id: 2, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
+    ExerciseDatamodell(id: 3, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
+    ExerciseDatamodell(id: 4, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
+    ExerciseDatamodell(id: 5, name: "Test3", description: "Test3", task: "task", solution: "solution", difficultyLevel: 3),
   ];
 
   @override
@@ -100,11 +100,11 @@ class DesktopSubmissionPage extends StatelessWidget{
   DesktopSubmissionPage({super.key});
 
   final List<ExerciseDatamodell> items = [
-    ExerciseDatamodell(name: "Abgabe1", description: "Test1", task: "task", solution: "solution", difficultyLevel: 1),
-    ExerciseDatamodell(name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(name: "Test3", description: "Test3", task: "task", solution: "solution", difficultyLevel: 3),
+    ExerciseDatamodell(id: 1, name: "Abgabe1", description: "Test1", task: "task", solution: "solution", difficultyLevel: 1),
+    ExerciseDatamodell(id: 2, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
+    ExerciseDatamodell(id: 3, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
+    ExerciseDatamodell(id: 4, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
+    ExerciseDatamodell(id: 5, name: "Test3", description: "Test3", task: "task", solution: "solution", difficultyLevel: 3),
   ];
 
   @override

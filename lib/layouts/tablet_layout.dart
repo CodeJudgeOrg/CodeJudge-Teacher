@@ -4,6 +4,7 @@ import 'package:code_judge_teacher/pages/add_or_edit_exercise_page.dart';
 import 'package:code_judge_teacher/pages/settings_page.dart';
 import 'package:code_judge_teacher/ui_elements/my_list_items.dart';
 import 'package:code_judge_teacher/ui_elements/my_navigation_bar.dart';
+import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/exercise_datamodell.dart';
 import 'package:code_judge_teacher/utils/global_variables.dart';
 import 'package:flutter/material.dart';
@@ -54,11 +55,11 @@ class TabletExercisePage extends StatelessWidget{
   TabletExercisePage({super.key});
 
   final List<ExerciseDatamodell> items = [
-    ExerciseDatamodell(name: "Test1", description: "Test1", task: "task", solution: "solution", difficultyLevel: 1),
-    ExerciseDatamodell(name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(name: "Test3", description: "Test3", task: "task", solution: "solution", difficultyLevel: 3),
+    ExerciseDatamodell(id: 1, name: "Abgabe1", description: "Test1", task: "task", solution: "solution", difficultyLevel: 1),
+    ExerciseDatamodell(id: 2, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
+    ExerciseDatamodell(id: 3, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
+    ExerciseDatamodell(id: 4, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
+    ExerciseDatamodell(id: 5, name: "Test3", description: "Test3", task: "task", solution: "solution", difficultyLevel: 3),
   ];
 
   @override
@@ -90,9 +91,13 @@ class TabletExercisePage extends StatelessWidget{
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add_rounded),
         label: Text(appLocalizations.newExercise), // New
-        onPressed: () {
-          // Open a page to add a new exercise
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(isEditingAnExercise: false)));
+        onPressed: () async {
+          // Insert a new exercise to the db
+          int? id = await CodeJudgeTeacherDB().insertNewExercise();
+          if (id != null) {
+            // Open a page to add a new exercise
+            Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(isEditingAnExercise: false, id: id)));
+          }
         },
       ),
     );
@@ -104,11 +109,11 @@ class TabletSubmissionPage extends StatelessWidget{
   TabletSubmissionPage({super.key});
 
   final List<ExerciseDatamodell> items = [
-    ExerciseDatamodell(name: "Abgabe1", description: "Test1", task: "task", solution: "solution", difficultyLevel: 1),
-    ExerciseDatamodell(name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(name: "Test3", description: "Test3", task: "task", solution: "solution", difficultyLevel: 3),
+    ExerciseDatamodell(id: 1, name: "Abgabe1", description: "Test1", task: "task", solution: "solution", difficultyLevel: 1),
+    ExerciseDatamodell(id: 2, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
+    ExerciseDatamodell(id: 3, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
+    ExerciseDatamodell(id: 4, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
+    ExerciseDatamodell(id: 5, name: "Test3", description: "Test3", task: "task", solution: "solution", difficultyLevel: 3),
   ];
 
   @override
