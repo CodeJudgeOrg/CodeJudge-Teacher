@@ -3,51 +3,29 @@ import 'package:code_judge_teacher/ui_elements/my_edit_text.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:flutter/material.dart';
 
-class AddOrEditExercisePage extends StatelessWidget{
-  final bool isEditingAnExercise;
+// Displayed if the user adds a new exercise
+class AddOrEditExercisePage extends StatefulWidget{
   final int id;
+  final bool isEditingAnExercise;
 
   const AddOrEditExercisePage({
     super.key,
+    required this.id,
     required this.isEditingAnExercise,
-    required this.id,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final CodeJudgeTeacherDB db = CodeJudgeTeacherDB();
-
-    // Pick the correct layout
-    if (isEditingAnExercise) {
-      return EditExerciseLayout();
-    } else {
-      return AddExerciseLayout(db: db, id: id);
-    }
-  }
+  State<AddOrEditExercisePage> createState() => _AddOrEditExercisePageState();
 }
 
-// Displayed if the user adds a new exercise
-class AddExerciseLayout extends StatefulWidget{
-  final CodeJudgeTeacherDB db;
-  final int id;
-
-  const AddExerciseLayout({
-    super.key,
-    required this.db,
-    required this.id,
-  });
-
-  @override
-  State<AddExerciseLayout> createState() => _AddExerciseLayoutState();
-}
-
-class _AddExerciseLayoutState extends State<AddExerciseLayout> {
+class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
   late TextEditingController nameController;
   late TextEditingController descriptionController;
   late TextEditingController taskController;
   late TextEditingController solutionController;
   late TextEditingController hintController;
   int currentValue = 1;
+
   @override
   void initState() {
     super.initState();
@@ -64,10 +42,15 @@ class _AddExerciseLayoutState extends State<AddExerciseLayout> {
     final theme = Theme.of(context);
     final appLocalizations = AppLocalizations.of(context)!;
     final difficultyLevelFocusNode = FocusNode();
+    final db = CodeJudgeTeacherDB();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(appLocalizations.addExercise), // "Add a new exercise"
+        title: Text(
+          widget.isEditingAnExercise
+            ? appLocalizations.editExercise // "Edit an exercise"
+            : appLocalizations.addExercise, // "Add a new exercise"
+        ),
         backgroundColor: theme.colorScheme.primaryContainer,
       ),
       body: Expanded(
@@ -84,7 +67,7 @@ class _AddExerciseLayoutState extends State<AddExerciseLayout> {
                       hint: appLocalizations.hintEnterName, // "Name:"
                       onInputDone: (value) {
                         // Edit the name in the db
-                        widget.db.updateExerciseName(value, widget.id);
+                        db.updateExerciseName(value, widget.id);
                         // TODO Add it to the list using a provider
                       },
                     ),
@@ -137,21 +120,4 @@ class _AddExerciseLayoutState extends State<AddExerciseLayout> {
   }
 }
 
-// Displayed if the user edits an exercise
-class EditExerciseLayout extends StatelessWidget{
-  const EditExerciseLayout({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final appLocalizations = AppLocalizations.of(context)!;
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(appLocalizations.editExercise), // "Edit an exercise"
-        backgroundColor: theme.colorScheme.primaryContainer,
-      ),
-      body: Placeholder(),
-    );
-  }
-}
+// TODO Make this page responsive!
