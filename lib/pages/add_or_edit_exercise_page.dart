@@ -34,6 +34,7 @@ class _AddExerciseLayoutState extends State<AddExerciseLayout> {
   late TextEditingController taskController;
   late TextEditingController solutionController;
   late TextEditingController hintController;
+  int currentValue = 1;
   @override
   void initState() {
     super.initState();
@@ -50,7 +51,6 @@ class _AddExerciseLayoutState extends State<AddExerciseLayout> {
     final theme = Theme.of(context);
     final appLocalizations = AppLocalizations.of(context)!;
     final difficultyLevelFocusNode = FocusNode();
-    int currentValue = 1;
 
     return Scaffold(
       appBar: AppBar(
@@ -87,12 +87,14 @@ class _AddExerciseLayoutState extends State<AddExerciseLayout> {
                               DropdownMenuItem(value: 3, child: Text(appLocalizations.difficultLevel)), // "Professional"
                             ],
                             onChanged: (value) {
-                              // TODO Higlight selected item
-                              currentValue = value!;
+                              // Higlight selected item
+                              setState(() {
+                                currentValue = value!;
+                              });
                               FocusScope.of(context).requestFocus(FocusNode());
                             },
                           )
-                        )
+                        ),
                       ),
                     ),
                   ),
