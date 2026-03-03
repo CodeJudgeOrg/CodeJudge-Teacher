@@ -14,6 +14,7 @@
 
 // This defines which values an exercise has
 class ExerciseDatamodell {
+  final int id;
   final String name;
   final String description;
   final String task;
@@ -22,6 +23,7 @@ class ExerciseDatamodell {
   final String hint;
 
   ExerciseDatamodell({
+    required this.id,
     required this.name,
     required this.description,
     required this.task,
