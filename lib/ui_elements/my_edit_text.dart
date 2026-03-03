@@ -22,17 +22,19 @@ class MyEditText extends StatefulWidget {
   final bool autofocus;
   final TextInputType textInputType;
   final String hint;
-  final TextEditingController controller;
+  final ValueChanged<String>? onInputDone;
+  final String? text;
 
   const MyEditText({
     super.key,
     required this.hint,
-    required this.controller,
     this.multiline = true,
     this.suggestions = false,
     this.autocorrect = false,
     this.autofocus = true,
     this.textInputType = TextInputType.text,
+    this.onInputDone = null,
+    this.text,
   });
 
   @override
@@ -40,12 +42,26 @@ class MyEditText extends StatefulWidget {
 }
 
 class _MyEditTextState extends State<MyEditText> {
+  late TextEditingController controller;
+  late FocusNode focusNode;
 
   @override
   void initState() {
     super.initState();
+    // Apply the controller
+    controller = TextEditingController(text: widget.text);
     // Cursor at the end
-    widget.controller.selection = TextSelection.fromPosition(TextPosition(offset: widget.controller.text.length));
+    controller.selection = TextSelection.fromPosition(TextPosition(offset: controller.text.length));
+
+    // Apply the FocusNode
+    focusNode = FocusNode();
+
+    // Call onInputDone if the focus is lost
+    focusNode.addListener(() {
+      if (!focusNode.hasFocus) {
+        finalizeInput();
+      }
+    });
   }
 
   @override
@@ -53,14 +69,12 @@ class _MyEditTextState extends State<MyEditText> {
     final int? maxLines = widget.multiline ? null : 1;
 
     return TextField(
-      controller: widget.controller,
+      controller: controller,
       autocorrect: widget.autocorrect,
       enableSuggestions: widget.suggestions,
       autofocus: widget.autofocus,
       maxLines: maxLines,
-
       textInputAction: widget.multiline ? TextInputAction.newline : TextInputAction.done,
-
       decoration: InputDecoration(
         hintText: widget.hint,
         filled: true,
@@ -76,6 +90,27 @@ class _MyEditTextState extends State<MyEditText> {
         ),
         hintStyle: TextStyle(color: Theme.of(context).hintColor),
       ),
+      onSubmitted: (_) => finalizeInput(),
+      onTapOutside: (_) => finalizeInput(),
+      onEditingComplete: () => finalizeInput(),
     );
+  }
+
+  @override
+  void dispose() {
+    // Call onInputDone
+    finalizeInput();
+    // Close everything
+    focusNode.dispose();
+    controller.dispose();
+    super.dispose();
+  }
+
+  // Function calling onInputDone
+  void finalizeInput() {
+    final text = controller.text.trim();
+    if (text.isNotEmpty) {
+      widget.onInputDone?.call(text);
+    }
   }
 }
