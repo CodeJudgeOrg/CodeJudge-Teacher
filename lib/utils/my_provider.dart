@@ -1,3 +1,4 @@
+import 'package:code_judge_teacher/utils/exercise_datamodell.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -57,6 +58,23 @@ class SettingsController extends ChangeNotifier {
       await sharedPreferences.setString('selected_locale', locale.languageCode);
       _selectedLocale = locale;
     }
+    notifyListeners();
+  }
+}
+
+// Store and update the displayed list of exercises
+class ExerciseProvider extends ChangeNotifier {
+  List<ExerciseDatamodell> exercises = [];
+
+  // Insert an exercise
+  void insertExercise(ExerciseDatamodell exercise) {
+    exercises.add(exercise);
+    notifyListeners();
+  }
+
+  // Insert all exercises
+  void insertExercises(List<ExerciseDatamodell> newExercises) {
+    exercises..clear()..addAll(newExercises);
     notifyListeners();
   }
 }
