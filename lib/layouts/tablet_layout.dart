@@ -7,17 +7,19 @@ import 'package:code_judge_teacher/ui_elements/my_navigation_bar.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/exercise_datamodell.dart';
 import 'package:code_judge_teacher/utils/global_variables.dart';
+import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TabletLayout extends StatefulWidget{
 
   const TabletLayout({super.key});
 
   @override
-  State<TabletLayout> createState() => _MobileLayoutState();
+  State<TabletLayout> createState() => _TabletLayoutState();
 }
 
-class _MobileLayoutState extends State<TabletLayout> {
+class _TabletLayoutState extends State<TabletLayout> {
   Widget getSelectedPage() {
     switch (selectedIndexInNavigationBar) {
       case 0:
@@ -29,8 +31,17 @@ class _MobileLayoutState extends State<TabletLayout> {
     }
   }
 
+  void getExercises(BuildContext context) async {
+    final CodeJudgeTeacherDB db = CodeJudgeTeacherDB();
+    List<ExerciseDatamodell>? exercises = await db.getAllExercises();
+    if (exercises != null) {
+      context.read<ExerciseProvider>().insertExercises(exercises);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    getExercises(context);
     return MyNavigationBar(
       body: getSelectedPage(),
       screenType: ScreenType.tablet,
@@ -52,19 +63,13 @@ class _MobileLayoutState extends State<TabletLayout> {
 
 // Exercise section
 class TabletExercisePage extends StatelessWidget{
-  TabletExercisePage({super.key});
-
-  final List<ExerciseDatamodell> items = [
-    ExerciseDatamodell(id: 1, name: "Abgabe1", description: "Test1", task: "task", solution: "solution", difficultyLevel: 1),
-    ExerciseDatamodell(id: 2, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(id: 3, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(id: 4, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(id: 5, name: "Test3", description: "Test3", task: "task", solution: "solution", difficultyLevel: 3),
-  ];
+  const TabletExercisePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
+    // Get and store all exercises
+    final exercises = context.watch<ExerciseProvider>().exercises;
 
     return Scaffold(
       // Display a list of exercises
@@ -75,11 +80,11 @@ class TabletExercisePage extends StatelessWidget{
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
           children: List.generate(
-            items.length,
+            exercises.length,
             (index) {
               return MyDesktopAndTabletItem(
-                title: items[index].name,
-                note: appLocalizations.noteDifficultyLevel + items[index].difficultyLevel.toString(),
+                title: exercises[index].name,
+                note: appLocalizations.noteDifficultyLevel + exercises[index].difficultyLevel.toString(),
                 onTap: (){
                   // TODO Open editor
                 }
@@ -104,7 +109,7 @@ class TabletExercisePage extends StatelessWidget{
   }
 }
 
-// Seubmissions section
+// Submissions section
 class TabletSubmissionPage extends StatelessWidget{
   TabletSubmissionPage({super.key});
 
