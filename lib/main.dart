@@ -8,13 +8,17 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
+  final exerciseProvider = ExerciseProvider();
   // Load the settings
   final settingsProvider = SettingsController();
   await settingsProvider.loadSettings;
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => settingsProvider,
-      child: const MyApp()
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => exerciseProvider),
+        ChangeNotifierProvider(create: (_) => settingsProvider)
+      ],
+      child: const MyApp(),
     ),
   );
 }
