@@ -23,6 +23,24 @@ class AddOrEditExercisePage extends StatefulWidget{
 
 class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
   int currentValue = 1;
+  // Store the entered data and update the provider depending on it
+  late ExerciseDatamodell exercise;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    // Apply some values to exercise, but just once
+    exercise = ExerciseDatamodell(
+      id: widget.id,
+      name: "",
+      description: "",
+      task: "",
+      solution: "",
+      difficultyLevel: 0
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +48,6 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
     final appLocalizations = AppLocalizations.of(context)!;
     final difficultyLevelFocusNode = FocusNode();
     final db = CodeJudgeTeacherDB();
-    // Store the entered data and update the provider depending on it
-    ExerciseDatamodell exercise = ExerciseDatamodell(
-    id: widget.id,
-    name: "",
-    description: "",
-    task: "",
-    solution: "",
-    difficultyLevel: 1
-  );
 
     return Scaffold(
       appBar: AppBar(
@@ -51,7 +60,6 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
-            print(exercise.name);
             // Add the exercise to the list
             context.read<ExerciseProvider>().insertExercise(exercise);
             // TODO Update if editing
@@ -110,16 +118,26 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
               hint: appLocalizations.hintEnterDescription, // "Description:"
               onInputDone: (value) {
                 // TODO Implement all those EditTexts
+                //exercise.description = value;
               },
             ),
             MyEditText(
               hint: appLocalizations.hintEnterTask, // "Task:"
+              onInputDone: (value) {
+                //exercise.task = value;
+              },
             ),
             MyEditText(
               hint: appLocalizations.hintEnterSolution, // "Solution:"
+              onInputDone: (value) {
+                //exercise.solution = value;
+              },
             ),
             MyEditText(
               hint: appLocalizations.hintEnterHint, // "Hint:"
+              onInputDone: (value) {
+                //exercise.hint = value;
+              },
             ),
           ],
         )
