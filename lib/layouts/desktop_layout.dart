@@ -1,11 +1,15 @@
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/main.dart';
+import 'package:code_judge_teacher/pages/add_or_edit_exercise_page.dart';
 import 'package:code_judge_teacher/pages/settings_page.dart';
 import 'package:code_judge_teacher/ui_elements/my_list_items.dart';
 import 'package:code_judge_teacher/ui_elements/my_navigation_bar.dart';
+import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/exercise_datamodell.dart';
 import 'package:code_judge_teacher/utils/global_variables.dart';
+import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DesktopLayout extends StatefulWidget{
 
@@ -49,19 +53,13 @@ class _MobileLayoutState extends State<DesktopLayout> {
 }
 
 class DesktopExercisePage extends StatelessWidget{
-  DesktopExercisePage({super.key});
-
-  final List<ExerciseDatamodell> items = [
-    ExerciseDatamodell(id: 1, name: "Abgabe1", description: "Test1", task: "task", solution: "solution", difficultyLevel: 1),
-    ExerciseDatamodell(id: 2, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(id: 3, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(id: 4, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodell(id: 5, name: "Test3", description: "Test3", task: "task", solution: "solution", difficultyLevel: 3),
-  ];
+  const DesktopExercisePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
+    // Get and store all exercises
+    final exercises = context.watch<ExerciseProvider>().exercises;
 
     return Scaffold(
       // Display a list of exercises
@@ -72,11 +70,11 @@ class DesktopExercisePage extends StatelessWidget{
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
           children: List.generate(
-            items.length,
+            exercises.length,
             (index) {
               return MyDesktopAndTabletItem(
-                title: items[index].name,
-                note: appLocalizations.noteDifficultyLevel + items[index].difficultyLevel.toString(),
+                title: exercises[index].name,
+                note: appLocalizations.noteDifficultyLevel + exercises[index].difficultyLevel.toString(),
                 onTap: (){
                   // TODO Open editor
                 }
@@ -88,8 +86,13 @@ class DesktopExercisePage extends StatelessWidget{
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add_rounded),
         label: Text(appLocalizations.newExercise), // New
-        onPressed: () {
-          // TODO Open layout to add an exercise
+        onPressed: () async {
+          // Insert a new exercise to the db
+          int? id = await CodeJudgeTeacherDB().insertNewExercise();
+          if (id != null) {
+            // Open a page to add a new exercise
+            Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(isEditingAnExercise: false, id: id)));
+          }
         },
       ),
     );
