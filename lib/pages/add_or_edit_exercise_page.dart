@@ -1,7 +1,10 @@
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/ui_elements/my_edit_text.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
+import 'package:code_judge_teacher/utils/exercise_datamodell.dart';
+import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // Displayed if the user adds a new exercise
 class AddOrEditExercisePage extends StatefulWidget{
@@ -19,23 +22,7 @@ class AddOrEditExercisePage extends StatefulWidget{
 }
 
 class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
-  late TextEditingController nameController;
-  late TextEditingController descriptionController;
-  late TextEditingController taskController;
-  late TextEditingController solutionController;
-  late TextEditingController hintController;
   int currentValue = 1;
-
-  @override
-  void initState() {
-    super.initState();
-    // Set the controllers
-    nameController = TextEditingController();
-    descriptionController = TextEditingController();
-    taskController = TextEditingController();
-    solutionController = TextEditingController();
-    hintController = TextEditingController();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +30,15 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
     final appLocalizations = AppLocalizations.of(context)!;
     final difficultyLevelFocusNode = FocusNode();
     final db = CodeJudgeTeacherDB();
+    // Store the entered data and update the provider depending on it
+    ExerciseDatamodell exercise = ExerciseDatamodell(
+    id: widget.id,
+    name: "",
+    description: "",
+    task: "",
+    solution: "",
+    difficultyLevel: 1
+  );
 
     return Scaffold(
       appBar: AppBar(
@@ -52,6 +48,18 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
             : appLocalizations.addExercise, // "Add a new exercise"
         ),
         backgroundColor: theme.colorScheme.primaryContainer,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            print(exercise.name);
+            // Add the exercise to the list
+            context.read<ExerciseProvider>().insertExercise(exercise);
+            // TODO Update if editing
+            // Close
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_outlined),
+        ),
       ),
       body: Expanded(
         child: SingleChildScrollView(
@@ -66,9 +74,9 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
                     child: MyEditText(
                       hint: appLocalizations.hintEnterName, // "Name:"
                       onInputDone: (value) {
-                        // Edit the name in the db
-                        db.updateExerciseName(value, widget.id);
-                        // TODO Add it to the list using a provider
+                        // Store the name
+                        db.updateExerciseName(value.trim(), widget.id);
+                        exercise.name = value.trim();
                       },
                     ),
                   ),
@@ -87,9 +95,10 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
                               DropdownMenuItem(value: 3, child: Text(appLocalizations.difficultLevel)), // "Professional"
                             ],
                             onChanged: (value) {
+                              exercise.difficultyLevel = value!;
                               // Higlight selected item
                               setState(() {
-                                currentValue = value!;
+                                currentValue = value;
                               });
                               FocusScope.of(context).requestFocus(FocusNode());
                             },
@@ -102,6 +111,9 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
               ),
               MyEditText(
                 hint: appLocalizations.hintEnterDescription, // "Description:"
+                onInputDone: (value) {
+                  // TODO Implement all those EditTexts
+                },
               ),
               MyEditText(
                 hint: appLocalizations.hintEnterTask, // "Task:"
@@ -117,6 +129,10 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
         )
       ),
     );
+  }
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
 
