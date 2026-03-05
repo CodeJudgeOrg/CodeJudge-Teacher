@@ -101,7 +101,9 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
                           DropdownMenuItem(value: 3, child: Text(appLocalizations.difficultLevel)), // "Professional"
                         ],
                         onChanged: (value) {
+                          // Save the new value
                           exercise.difficultyLevel = value!;
+                          db.updateExerciseDifficulty(value, widget.id);
                           // Higlight selected item
                           setState(() {
                             currentValue = value;
@@ -117,26 +119,30 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
             MyEditText(
               hint: appLocalizations.hintEnterDescription, // "Description:"
               onInputDone: (value) {
-                // TODO Implement all those EditTexts
+                // Save the changes
                 exercise.description = value.trim();
+                db.updateExerciseDescription(value, widget.id);
               },
             ),
             MyEditText(
               hint: appLocalizations.hintEnterTask, // "Task:"
               onInputDone: (value) {
                 exercise.task = value.trim();
+                db.updateExerciseTask(value, widget.id);
               },
             ),
             MyEditText(
               hint: appLocalizations.hintEnterSolution, // "Solution:"
               onInputDone: (value) {
                 exercise.solution = value.trim();
+                db.updateExerciseSolution(value, widget.id);
               },
             ),
             MyEditText(
               hint: appLocalizations.hintEnterHint, // "Hint:"
               onInputDone: (value) {
                 exercise.hint = value.trim();
+                db.updateExerciseHint(value, widget.id);
               },
             ),
           ],
