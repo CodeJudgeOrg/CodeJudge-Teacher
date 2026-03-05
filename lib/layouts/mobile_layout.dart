@@ -72,7 +72,8 @@ class MobileExercisePage extends StatelessWidget{
             title: exercises[index].name,
             note: appLocalizations.noteDifficultyLevel + exercises[index].difficultyLevel.toString(),
             onTap: (){
-              // TODO Open editor
+              // Open editor
+              Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(id: exercises[index].id, isEditingAnExercise: true, position: index)));
             }
           );
         },
