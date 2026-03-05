@@ -40,15 +40,21 @@ class MyDesktopAndTabletItem extends StatelessWidget{
         onTap: onTap,
         onLongPress: onLongPress,
         borderRadius: BorderRadius.circular(12),
-        splashColor: theme.colorScheme.surfaceContainerHigh, // Ripple-color at click
-        hoverColor: theme.colorScheme.surfaceContainer,  // Hover-color
+        splashColor: theme.colorScheme.primary.withAlpha(32), // Ripple-color at click
+        hoverColor: theme.colorScheme.tertiary.withAlpha(32),  // Hover-color
         child: Container(
           padding: const EdgeInsets.all(16),
           alignment: Alignment.center,
           child: Stack(
             children: [
-              Center(child: Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
-              Positioned(bottom: 0, right: 0, child: Text(note, style: TextStyle(fontSize: 12))),
+              Center(
+                child: Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Text(note, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w200))
+              ),
             ],
           )
         ),
@@ -58,12 +64,13 @@ class MyDesktopAndTabletItem extends StatelessWidget{
 }
 // Styled item for the ListView
 class MyMobileItem extends StatelessWidget {
-  final title;
+  final String title;
   final VoidCallback onTap;
   final VoidCallback? onLongPress;
   final String note;
 
-  MyMobileItem({
+  const MyMobileItem({
+    super.key,
     required this.title,
     required this.onTap,
     this.onLongPress,
@@ -81,18 +88,17 @@ class MyMobileItem extends StatelessWidget {
         onTap: onTap,
         onLongPress: onLongPress,
         borderRadius: BorderRadius.circular(12),
-        splashColor: theme.colorScheme.surfaceContainerHigh,
-        hoverColor: theme.colorScheme.surfaceContainer,
+        splashColor: theme.colorScheme.primary.withAlpha(32),
+        hoverColor: theme.colorScheme.tertiary.withAlpha(32),
         child: Container(
           padding: const EdgeInsets.all(16),
           alignment: Alignment.centerLeft,
-          child: Stack(
+          child: Row(
               children: [
-                Align(
-                  alignment: AlignmentGeometry.centerLeft,
+                Expanded(
                   child: Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 ),
-                Positioned(bottom: 0, right: 0, child: Text(note, style: TextStyle(fontSize: 12))),
+                Text(note, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w200))
               ],
             )
         ),
