@@ -44,17 +44,7 @@ class CodeJudgeTeacherDB {
         version: 1,
         onCreate: (db, version) async {
           // Table for all exercises
-          await db.execute('''
-            CREATE TABLE exercises(
-              id INTEGER PRIMARY KEY AUTOINCREMENT,
-              name TEXT,
-              description TEXT,
-              task TEXT,
-              solution TEXT,
-              hint TEXT,
-              difficulty INTEGER
-            );
-          ''');
+          await db.execute(ExerciseTable.schema);
         },
       ),
     );
@@ -67,13 +57,13 @@ class CodeJudgeTeacherDB {
   Future<int?> insertNewExercise() async {
     final db = await code_judge_teacher_db;
     try {
-      final id = await db.insert("exercises", {
-        "name": "",
-        "description": "",
-        "task": "",
-        "solution": "",
-        "hint": "",
-        "difficulty": 0,
+      final id = await db.insert(ExerciseTable.table, {
+        ExerciseTable.name: "",
+        ExerciseTable.description: "",
+        ExerciseTable.task: "",
+        ExerciseTable.solution: "",
+        ExerciseTable.hint: "",
+        ExerciseTable.difficulty: 0,
       });
       logger.i("Exercise successfully inserted");
       return id;
@@ -86,10 +76,10 @@ class CodeJudgeTeacherDB {
   void updateExerciseName(String name, int id) async {
     final db = await code_judge_teacher_db;
     try {
-      await db.update("exercises", {"name": name}, where: "id = ?", whereArgs: [id]);
-      logger.i("Name of the exercise successfully updated");
+      await db.update(ExerciseTable.table, {ExerciseTable.name: name}, where: "${ExerciseTable.id} = ?", whereArgs: [id]);
+      logger.i("Name successfully updated");
     } catch (e) {
-      logger.e("ERROR: Couldn't update the name of the exercise (Code 2)\nid: $id \n$e");
+      logger.e("ERROR: Couldn't update the name (Code 2):\nid: $id \n\n$e");
     }
   }
   // Receive a list of all exercises
@@ -97,15 +87,15 @@ class CodeJudgeTeacherDB {
     final db = await code_judge_teacher_db;
     try {
       // Receive all dishes and crete a usable list
-      final exercises = await db.rawQuery("SELECT * FROM exercises");
+      final exercises = await db.rawQuery("SELECT * FROM ${ExerciseTable.table}");
       List<ExerciseDatamodell> convertedExercises = exercises.map((exercises) => ExerciseDatamodell(
-        id: exercises["id"] as int,
-        name: exercises["name"] as String,
-        description: exercises["description"] as String,
-        task: exercises["task"] as String,
-        solution: exercises["solution"] as String,
-        difficultyLevel: exercises["difficulty"] as int,
-        hint: exercises["hint"] as String,
+        id: exercises[ExerciseTable.id] as int,
+        name: exercises[ExerciseTable.name] as String,
+        description: exercises[ExerciseTable.description] as String,
+        task: exercises[ExerciseTable.task] as String,
+        solution: exercises[ExerciseTable.solution] as String,
+        difficultyLevel: exercises[ExerciseTable.difficulty] as int,
+        hint: exercises[ExerciseTable.hint] as String,
       )).toList();
 
       logger.i("Exercises successfully received");
@@ -117,8 +107,32 @@ class CodeJudgeTeacherDB {
   }
 }
 
+// ##########################################################################################
+// Constant values:
+// ##########################################################################################
+class ExerciseTable {
+  static const id = "id";
+  static const table = "exercises";
+  static const name = "name";
+  static const description = "description";
+  static const task = "task";
+  static const solution = "solution";
+  static const hint = "hint";
+  static const difficulty = "difficulty";
+  static const schema = '''
+    CREATE TABLE exercises(
+      $id INTEGER PRIMARY KEY AUTOINCREMENT,
+      $name TEXT,
+      $description TEXT,
+      $task TEXT,
+      $solution TEXT,
+      $hint TEXT,
+      $difficulty INTEGER
+    );
+  ''';
+}
+
 // TODO:
-// - Display all exercises
 // - Edit all exercise values
 // - Delete all exercises
 // - Delete an exercise
