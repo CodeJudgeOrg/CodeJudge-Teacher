@@ -63,25 +63,23 @@ class DesktopExercisePage extends StatelessWidget{
 
     return Scaffold(
       // Display a list of exercises
-      body: Positioned.fill(
-        child: GridView.count(
-          crossAxisCount: 5,
-          padding: const EdgeInsets.all(16),
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-          children: List.generate(
-            exercises.length,
-            (index) {
-              return MyDesktopAndTabletItem(
-                title: exercises[index].name,
-                note: appLocalizations.noteDifficultyLevel + exercises[index].difficultyLevel.toString(),
-                onTap: (){
-                  // TODO Open editor
-                }
-              );
-            }
-          ),
-        )
+      body: GridView.count(
+        crossAxisCount: 5,
+        padding: const EdgeInsets.all(16),
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        children: List.generate(
+          exercises.length,
+          (index) {
+            return MyDesktopAndTabletItem(
+              title: exercises[index].name,
+              note: appLocalizations.noteDifficultyLevel + exercises[index].difficultyLevel.toString(),
+              onTap: (){
+                // TODO Open editor
+              }
+            );
+          }
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add_rounded),
@@ -116,25 +114,23 @@ class DesktopSubmissionPage extends StatelessWidget{
 
     return Scaffold(
       // Display a list of exercises
-      body: Positioned.fill(
-        child: GridView.count(
-          crossAxisCount: 5,
-          padding: const EdgeInsets.all(16),
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-          children: List.generate(
-            items.length,
-            (index) {
-              return MyDesktopAndTabletItem(
-                title: items[index].name,
-                note: appLocalizations.noteDifficultyLevel + items[index].difficultyLevel.toString(),
-                onTap: (){
-                  // TODO Open editor
-                }
-              );
-            }
-          ),
-        )
+      body: GridView.count(
+        crossAxisCount: 5,
+        padding: const EdgeInsets.all(16),
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        children: List.generate(
+          items.length,
+          (index) {
+            return MyDesktopAndTabletItem(
+              title: items[index].name,
+              note: appLocalizations.noteDifficultyLevel + items[index].difficultyLevel.toString(),
+              onTap: (){
+                // TODO Open editor
+              }
+            );
+          }
+        ),
       ),
     );
   }

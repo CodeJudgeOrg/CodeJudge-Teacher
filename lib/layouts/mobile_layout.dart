@@ -63,21 +63,19 @@ class MobileExercisePage extends StatelessWidget{
 
     return Scaffold(
       // Display a list of exercises
-      body: Positioned.fill(
-        child: ListView.separated(
-          padding: const EdgeInsets.all(8),
-          itemCount: exercises.length,
-          separatorBuilder: (context, index) => const SizedBox(height: 8),
-          itemBuilder: (context, index) {
-            return MyMobileItem(
-              title: exercises[index].name,
-              note: appLocalizations.noteDifficultyLevel + exercises[index].difficultyLevel.toString(),
-              onTap: (){
-                // TODO Open editor
-              }
-            );
-          },
-        ),
+      body: ListView.separated(
+        padding: const EdgeInsets.all(8),
+        itemCount: exercises.length,
+        separatorBuilder: (context, index) => const SizedBox(height: 8),
+        itemBuilder: (context, index) {
+          return MyMobileItem(
+            title: exercises[index].name,
+            note: appLocalizations.noteDifficultyLevel + exercises[index].difficultyLevel.toString(),
+            onTap: (){
+              // TODO Open editor
+            }
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add_rounded),
@@ -112,21 +110,19 @@ class MobileSubmissionPage extends StatelessWidget{
 
     return Scaffold(
       // Display a list of exercises
-      body: Positioned.fill(
-        child: ListView.separated(
-          padding: const EdgeInsets.all(8),
-          itemCount: items.length,
-          separatorBuilder: (context, index) => const SizedBox(height: 8),
-          itemBuilder: (context, index) {
-            return MyMobileItem(
-              title: items[index].name,
-              note: appLocalizations.noteDifficultyLevel + items[index].difficultyLevel.toString(),
-              onTap: (){
-                // TODO Open editor
-              }
-            );
-          },
-        ),
+      body: ListView.separated(
+        padding: const EdgeInsets.all(8),
+        itemCount: items.length,
+        separatorBuilder: (context, index) => const SizedBox(height: 8),
+        itemBuilder: (context, index) {
+          return MyMobileItem(
+            title: items[index].name,
+            note: appLocalizations.noteDifficultyLevel + items[index].difficultyLevel.toString(),
+            onTap: (){
+              // TODO Open editor
+            }
+          );
+        },
       ),
     );
   }
