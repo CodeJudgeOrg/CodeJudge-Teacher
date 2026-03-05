@@ -9,12 +9,14 @@ import 'package:provider/provider.dart';
 // Displayed if the user adds a new exercise
 class AddOrEditExercisePage extends StatefulWidget{
   final int id;
+  final int position;
   final bool isEditingAnExercise;
 
   const AddOrEditExercisePage({
     super.key,
     required this.id,
     required this.isEditingAnExercise,
+    this.position = 0,
   });
 
   @override
@@ -28,7 +30,6 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     // Apply some values to exercise, but just once
@@ -60,9 +61,12 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
-            // Add the exercise to the list
-            context.read<ExerciseProvider>().insertExercise(exercise);
-            // TODO Update if editing
+            // Update the list
+            if (widget.isEditingAnExercise) {
+              context.read<ExerciseProvider>().editExercise(exercise, widget.position);
+            } else {
+              context.read<ExerciseProvider>().insertExercise(exercise);
+            }
             // Close
             Navigator.pop(context);
           },
@@ -149,10 +153,6 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
         )
       ),
     );
-  }
-  @override
-  void dispose() {
-    super.dispose();
   }
 }
 
