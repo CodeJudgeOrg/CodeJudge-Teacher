@@ -33,7 +33,7 @@ class MyEditText extends StatefulWidget {
     this.autocorrect = false,
     this.autofocus = true,
     this.textInputType = TextInputType.text,
-    this.onInputDone = null,
+    this.onInputDone,
     this.text,
   });
 
@@ -44,6 +44,7 @@ class MyEditText extends StatefulWidget {
 class _MyEditTextState extends State<MyEditText> {
   late TextEditingController controller;
   late FocusNode focusNode;
+  late String lastValue;
 
   @override
   void initState() {
@@ -56,12 +57,7 @@ class _MyEditTextState extends State<MyEditText> {
     // Apply the FocusNode
     focusNode = FocusNode();
 
-    // Call onInputDone if the focus is lost
-    focusNode.addListener(() {
-      if (!focusNode.hasFocus) {
-        finalizeInput();
-      }
-    });
+    lastValue = controller.text.trim();
   }
 
   @override
@@ -90,27 +86,21 @@ class _MyEditTextState extends State<MyEditText> {
         ),
         hintStyle: TextStyle(color: Theme.of(context).hintColor),
       ),
-      onSubmitted: (_) => finalizeInput(),
-      onTapOutside: (_) => finalizeInput(),
-      onEditingComplete: () => finalizeInput(),
+      // Pefrom something everytime something changed
+      onChanged: (value) {
+        if (value != lastValue) {
+          lastValue  = value;
+          widget.onInputDone?.call(value);
+        }
+      },
     );
   }
 
   @override
   void dispose() {
-    // Call onInputDone
-    finalizeInput();
     // Close everything
     focusNode.dispose();
     controller.dispose();
     super.dispose();
-  }
-
-  // Function calling onInputDone
-  void finalizeInput() {
-    final text = controller.text.trim();
-    if (text.isNotEmpty) {
-      widget.onInputDone?.call(text);
-    }
   }
 }
