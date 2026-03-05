@@ -31,17 +31,8 @@ class _TabletLayoutState extends State<TabletLayout> {
     }
   }
 
-  void getExercises(BuildContext context) async {
-    final CodeJudgeTeacherDB db = CodeJudgeTeacherDB();
-    List<ExerciseDatamodell>? exercises = await db.getAllExercises();
-    if (exercises != null) {
-      context.read<ExerciseProvider>().insertExercises(exercises);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    getExercises(context);
     return MyNavigationBar(
       body: getSelectedPage(),
       screenType: ScreenType.tablet,
