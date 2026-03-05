@@ -26,21 +26,28 @@ class AddOrEditExercisePage extends StatefulWidget{
 class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
   int currentValue = 1;
   // Store the entered data and update the provider depending on it
-  late ExerciseDatamodell exercise;
+  ExerciseDatamodell? exercise;
+  late CodeJudgeTeacherDB db;
 
   @override
   void initState() {
     super.initState();
+    db = CodeJudgeTeacherDB();
 
-    // Apply some values to exercise, but just once
-    exercise = ExerciseDatamodell(
-      id: widget.id,
-      name: "",
-      description: "",
-      task: "",
-      solution: "",
-      difficultyLevel: 0
-    );
+    // Apply values to exercise, but just once
+    if (widget.isEditingAnExercise) {
+      loadExerciseData();
+    } else {
+      exercise = ExerciseDatamodell(
+        id: widget.id,
+        name: "",
+        description: "",
+        task: "",
+        solution: "",
+        difficultyLevel: 1,
+        hint: ""
+      );
+    }
   }
 
   @override
@@ -48,7 +55,6 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
     final theme = Theme.of(context);
     final appLocalizations = AppLocalizations.of(context)!;
     final difficultyLevelFocusNode = FocusNode();
-    final db = CodeJudgeTeacherDB();
 
     return Scaffold(
       appBar: AppBar(
@@ -62,10 +68,10 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
         leading: IconButton(
           onPressed: () {
             // Update the list
-            if (widget.isEditingAnExercise) {
-              context.read<ExerciseProvider>().editExercise(exercise, widget.position);
-            } else {
-              context.read<ExerciseProvider>().insertExercise(exercise);
+            if (widget.isEditingAnExercise && exercise != null) {
+              context.read<ExerciseProvider>().editExercise(exercise!, widget.position);
+            } else if (exercise != null) {
+              context.read<ExerciseProvider>().insertExercise(exercise!);
             }
             // Close
             Navigator.pop(context);
@@ -84,10 +90,13 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
                 Expanded(
                   child: MyEditText(
                     hint: appLocalizations.hintEnterName, // "Name:"
+                    text: exercise?.name,
                     onInputDone: (value) {
                       // Store the name
                       db.updateExerciseName(value.trim(), widget.id);
-                      exercise.name = value.trim();
+                      if (exercise != null) {
+                        exercise!.name = value.trim();
+                      }
                     },
                   ),
                 ),
@@ -98,7 +107,7 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
                     trailing: DropdownButtonHideUnderline(
                       child: DropdownButton<int>(
                         focusNode: difficultyLevelFocusNode,
-                        value: currentValue,
+                        value: exercise != null ? exercise!.difficultyLevel: 1,
                         items: [
                           DropdownMenuItem(value: 1, child: Text(appLocalizations.simpleLevel)), // "Beginner"
                           DropdownMenuItem(value: 2, child: Text(appLocalizations.mediumLevel)), // "Intermediate"
@@ -106,12 +115,12 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
                         ],
                         onChanged: (value) {
                           // Save the new value
-                          exercise.difficultyLevel = value!;
-                          db.updateExerciseDifficulty(value, widget.id);
+                          if (exercise != null && value != null) {
+                            exercise!.difficultyLevel = value;
+                            db.updateExerciseDifficulty(value, widget.id);
+                          }
                           // Higlight selected item
-                          setState(() {
-                            currentValue = value;
-                          });
+                          setState(() {});
                           FocusScope.of(context).requestFocus(FocusNode());
                         },
                       )
@@ -122,30 +131,45 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
             ),
             MyEditText(
               hint: appLocalizations.hintEnterDescription, // "Description:"
+              text: exercise?.description,
               onInputDone: (value) {
                 // Save the changes
-                exercise.description = value.trim();
+                if (exercise != null) {
+                  exercise!.description = value.trim();
+                }
                 db.updateExerciseDescription(value, widget.id);
               },
             ),
             MyEditText(
               hint: appLocalizations.hintEnterTask, // "Task:"
+              text: exercise?.task,
               onInputDone: (value) {
-                exercise.task = value.trim();
+                // Save the changes
+                if (exercise != null) {
+                  exercise!.task = value.trim();
+                }
                 db.updateExerciseTask(value, widget.id);
               },
             ),
             MyEditText(
               hint: appLocalizations.hintEnterSolution, // "Solution:"
+              text: exercise?.solution,
               onInputDone: (value) {
-                exercise.solution = value.trim();
+                // Save the changes
+                if (exercise != null) {
+                  exercise!.solution = value.trim();
+                }
                 db.updateExerciseSolution(value, widget.id);
               },
             ),
             MyEditText(
               hint: appLocalizations.hintEnterHint, // "Hint:"
+              text: exercise?.hint,
               onInputDone: (value) {
-                exercise.hint = value.trim();
+                // Save the changes
+                if (exercise != null) {
+                  exercise!.hint = value.trim();
+                }
                 db.updateExerciseHint(value, widget.id);
               },
             ),
@@ -153,6 +177,25 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
         )
       ),
     );
+  }
+
+  // Receive the data from teh db and display it
+  Future<void> loadExerciseData() async {
+    final result = await db.getDataOfExercise(widget.id);
+    if (result != null) {
+      exercise = result;
+      setState(() {});
+    } else {
+      exercise = ExerciseDatamodell(
+        id: widget.id,
+        name: "",
+        description: "",
+        task: "",
+        solution: "",
+        difficultyLevel: 1,
+        hint: ""
+      );
+    }
   }
 }
 
