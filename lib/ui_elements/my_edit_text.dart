@@ -97,6 +97,19 @@ class _MyEditTextState extends State<MyEditText> {
   }
 
   @override
+  void didUpdateWidget(covariant MyEditText oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // Update the displayed text
+    if (oldWidget.text != widget.text) {
+      controller.text = widget.text ?? "";
+      controller.selection = TextSelection.fromPosition(
+        TextPosition(offset: controller.text.length),
+      );
+    }
+  }
+
+  @override
   void dispose() {
     // Close everything
     focusNode.dispose();
