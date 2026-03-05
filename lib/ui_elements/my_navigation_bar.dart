@@ -42,14 +42,24 @@ class MyNavigationBar extends StatelessWidget {
         body: Row(
           children: [
             Container(
-              width: 200,
+              width: 300,
               decoration: BoxDecoration(
-                color: theme.colorScheme.surface,
-                boxShadow: [BoxShadow(blurRadius: 12, spreadRadius: 2)],
+                color: theme.colorScheme.surfaceContainerLow,
               ),
               child: Column(
                 children: [
-                  for (int i = 0; i < items.length - 1; i++)
+                  Container( // Title
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0, top: 20.0, bottom: 20.0),
+                      child: Text(
+                        'CodeJudge',
+                        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: theme.colorScheme.primary)
+                      ),
+                    ),
+                  ),
+                  Divider(thickness: 1, height: 1, color: theme.colorScheme.primary),
+                  for (int i = 0; i < items.length - 1; i++) // Items
                     MyNavigationBarItem(
                       icon: items[i].icon,
                       label: items[i].label,
@@ -57,11 +67,8 @@ class MyNavigationBar extends StatelessWidget {
                       onTap: () => onItemSelected(i),
                     ),
                   const Spacer(),
-                  Padding(
-                    padding: EdgeInsetsGeometry.only(bottom: 4),
-                    child: Divider(thickness: 1, height: 1, color: theme.colorScheme.primary),
-                  ),
-                  MyNavigationBarItem(
+                  Divider(thickness: 1, height: 1, color: theme.colorScheme.primary),
+                  MyNavigationBarItem( // Settings
                     icon: items.last.icon,
                     label: items.last.label,
                     selected: selectedIndex == items.length - 1,
@@ -80,7 +87,7 @@ class MyNavigationBar extends StatelessWidget {
         body: Row(
           children: [
             NavigationRail(
-              backgroundColor: theme.colorScheme.surface,
+              backgroundColor: theme.colorScheme.surfaceContainerLow,
               selectedIndex: selectedIndex,
               labelType: NavigationRailLabelType.all,
               selectedIconTheme: IconThemeData(color: theme.colorScheme.primary, size: 30),
@@ -88,7 +95,7 @@ class MyNavigationBar extends StatelessWidget {
               selectedLabelTextStyle: TextStyle(color: theme.colorScheme.primary, fontWeight: FontWeight.bold),
               unselectedLabelTextStyle: TextStyle(color: theme.colorScheme.outline),
               onDestinationSelected: onItemSelected,
-              destinations: [
+              destinations: [ // Items
                 for (final item in items)
                   NavigationRailDestination(icon: Icon(item.icon), label: Text(item.label)),
               ],
@@ -102,7 +109,7 @@ class MyNavigationBar extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(title: Text(title), backgroundColor: theme.colorScheme.primaryContainer),
         drawer: Drawer(
-          backgroundColor: theme.colorScheme.surface,
+          backgroundColor: theme.colorScheme.surfaceContainerLow,
           child: Column(
             children: [
               DrawerHeader(
@@ -117,7 +124,7 @@ class MyNavigationBar extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    for (int i = 0; i < items.length - 1; i++)
+                    for (int i = 0; i < items.length - 1; i++) // Items
                       MyNavigationBarItem(
                         icon: items[i].icon,
                         label: items[i].label,
@@ -126,7 +133,7 @@ class MyNavigationBar extends StatelessWidget {
                       ),
                     const Spacer(),
                     Divider(thickness: 1, height: 1),
-                    MyNavigationBarItem(
+                    MyNavigationBarItem( // Settings
                       icon: items.last.icon,
                       label: items.last.label,
                       selected: selectedIndex == items.length - 1,
@@ -172,36 +179,36 @@ class MyNavigationBarItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 180),
-      curve: Curves.easeOut,
-      decoration: BoxDecoration(
-        color: selected ? theme.colorScheme.primary.withOpacity(0.12) : Colors.transparent,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(8),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: Row(
-            children: [
-              Icon(
-                icon,
-                size: 24,
-                color: selected ? theme.colorScheme.primary : theme.colorScheme.onSurface.withOpacity(0.8),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                label,
-                style: TextStyle(
-                  fontFamily: "SourceCodePro",
-                  fontSize: 15,
-                  fontWeight: selected ? FontWeight.bold : FontWeight.normal,
-                  color: selected ? theme.colorScheme.primary : theme.colorScheme.onSurface.withOpacity(0.8),
+    return Padding(
+      padding: const EdgeInsets.only(top: 4),
+      child: Material(
+        borderRadius: BorderRadius.circular(8.0),
+        color: selected ? theme.colorScheme.primary.withAlpha(30) : theme.colorScheme.surfaceContainerLow,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(8.0),
+          splashColor: selected ? Colors.transparent : theme.colorScheme.primary.withAlpha(32),
+          hoverColor: selected ? Colors.transparent : theme.colorScheme.tertiary.withAlpha(32),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Row(
+              children: [
+                Icon(
+                  icon,
+                  size: 24,
+                  color: selected ? theme.colorScheme.primary : theme.colorScheme.onSurface.withAlpha(244),
                 ),
-              ),
-            ],
+                const SizedBox(width: 8.0),
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: selected ? FontWeight.bold : FontWeight.w300,
+                    color: selected ? theme.colorScheme.primary : theme.colorScheme.onSurface.withAlpha(244),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
