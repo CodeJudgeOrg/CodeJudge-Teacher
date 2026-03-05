@@ -77,4 +77,10 @@ class ExerciseProvider extends ChangeNotifier {
     exercises..clear()..addAll(newExercises);
     notifyListeners();
   }
+
+  // Edit an exercise
+  void editExercise(ExerciseDatamodell exercise, int position) {
+    exercises..removeAt(position)..insert(position, exercise);
+    notifyListeners();
+  }
 }
