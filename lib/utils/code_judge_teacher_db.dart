@@ -72,7 +72,7 @@ class CodeJudgeTeacherDB {
       return null;
     }
   }
-  // Edit the name of an exercise
+  // Edit the values of an exercise
   void updateExerciseName(String name, int id) async {
     final db = await code_judge_teacher_db;
     try {
@@ -80,6 +80,51 @@ class CodeJudgeTeacherDB {
       logger.i("Name successfully updated");
     } catch (e) {
       logger.e("ERROR: Couldn't update the name (Code 2):\nid: $id \n\n$e");
+    }
+  }
+  void updateExerciseDescription(String description, int id) async {
+    final db = await code_judge_teacher_db;
+    try {
+      await db.update(ExerciseTable.table, {ExerciseTable.description: description}, where: "${ExerciseTable.id} = ?", whereArgs: [id]);
+      logger.i("Description successfully updated");
+    } catch (e) {
+      logger.e("ERROR: Couldn't update the description (Code 3):\nid: $id \n\n$e");
+    }
+  }
+  void updateExerciseTask(String task, int id) async {
+    final db = await code_judge_teacher_db;
+    try {
+      await db.update(ExerciseTable.table, {ExerciseTable.task: task}, where: "${ExerciseTable.id} = ?", whereArgs: [id]);
+      logger.i("Task successfully updated");
+    } catch (e) {
+      logger.e("ERROR: Couldn't update the task (Code 4):\nid: $id \n\n$e");
+    }
+  }
+  void updateExerciseSolution(String solution, int id) async {
+    final db = await code_judge_teacher_db;
+    try {
+      await db.update(ExerciseTable.table, {ExerciseTable.solution: solution}, where: "${ExerciseTable.id} = ?", whereArgs: [id]);
+      logger.i("solution successfully updated");
+    } catch (e) {
+      logger.e("ERROR: Couldn't update the solution (Code 5):\nid: $id \n\n$e");
+    }
+  }
+  void updateExerciseHint(String hint, int id) async {
+    final db = await code_judge_teacher_db;
+    try {
+      await db.update(ExerciseTable.table, {ExerciseTable.hint: hint}, where: "${ExerciseTable.id} = ?", whereArgs: [id]);
+      logger.i("Hint successfully updated");
+    } catch (e) {
+      logger.e("ERROR: Couldn't update the hint (Code 6):\nid: $id \n\n$e");
+    }
+  }
+  void updateExerciseDifficulty(int difficulty, int id) async {
+    final db = await code_judge_teacher_db;
+    try {
+      await db.update(ExerciseTable.table, {ExerciseTable.difficulty: difficulty}, where: "${ExerciseTable.id} = ?", whereArgs: [id]);
+      logger.i("Level of difficulty successfully updated");
+    } catch (e) {
+      logger.e("ERROR: Couldn't update the level of difficulty (Code 6):\nid: $id \n\n$e");
     }
   }
   // Receive a list of all exercises
@@ -101,7 +146,7 @@ class CodeJudgeTeacherDB {
       logger.i("Exercises successfully received");
       return convertedExercises;
     } catch (e) {
-      logger.e("Error: Couldn't receive the exercises (Code 3)");
+      logger.e("Error: Couldn't receive the exercises (Code -1)");
       return null;
     }
   }
