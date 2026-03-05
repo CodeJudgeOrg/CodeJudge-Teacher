@@ -118,25 +118,25 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
               hint: appLocalizations.hintEnterDescription, // "Description:"
               onInputDone: (value) {
                 // TODO Implement all those EditTexts
-                //exercise.description = value;
+                exercise.description = value.trim();
               },
             ),
             MyEditText(
               hint: appLocalizations.hintEnterTask, // "Task:"
               onInputDone: (value) {
-                //exercise.task = value;
+                exercise.task = value.trim();
               },
             ),
             MyEditText(
               hint: appLocalizations.hintEnterSolution, // "Solution:"
               onInputDone: (value) {
-                //exercise.solution = value;
+                exercise.solution = value.trim();
               },
             ),
             MyEditText(
               hint: appLocalizations.hintEnterHint, // "Hint:"
               onInputDone: (value) {
-                //exercise.hint = value;
+                exercise.hint = value.trim();
               },
             ),
           ],
