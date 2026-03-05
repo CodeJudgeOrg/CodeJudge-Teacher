@@ -63,7 +63,7 @@ class CodeJudgeTeacherDB {
         ExerciseTable.task: "",
         ExerciseTable.solution: "",
         ExerciseTable.hint: "",
-        ExerciseTable.difficulty: 0,
+        ExerciseTable.difficulty: 1,
       });
       logger.i("Exercise successfully inserted");
       return id;
@@ -146,7 +146,26 @@ class CodeJudgeTeacherDB {
       logger.i("Exercises successfully received");
       return convertedExercises;
     } catch (e) {
-      logger.e("Error: Couldn't receive the exercises (Code -1)");
+      logger.e("Error: Couldn't receive the exercises (Code -1)\n\n$e");
+      return null;
+    }
+  }
+  Future<ExerciseDatamodell?> getDataOfExercise(int id) async {
+    final db = await code_judge_teacher_db;
+    try {
+      final exercise = await db.rawQuery("SELECT * FROM ${ExerciseTable.table} WHERE ${ExerciseTable.id} = $id");
+      final convertedExercise =  ExerciseDatamodell(
+        id: exercise[0][ExerciseTable.id] as int,
+        name: exercise[0][ExerciseTable.name] as String,
+        description: exercise[0][ExerciseTable.description] as String,
+        task: exercise[0][ExerciseTable.task] as String,
+        solution: exercise[0][ExerciseTable.solution] as String,
+        difficultyLevel: exercise[0][ExerciseTable.difficulty] as int,
+        hint: exercise[0][ExerciseTable.hint] as String
+      );
+      return convertedExercise;
+    } catch (e) {
+      logger.e("Error: Couldn't receive the data (Code -2)\nid: $id \n\n$e");
       return null;
     }
   }
@@ -178,7 +197,6 @@ class ExerciseTable {
 }
 
 // TODO:
-// - Edit all exercise values
 // - Delete all exercises
 // - Delete an exercise
 // => Update the displayed list depending on this
