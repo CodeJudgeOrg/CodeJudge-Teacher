@@ -1,5 +1,5 @@
+import 'package:code_judge_library/code_judge_edit_text.dart';
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
-import 'package:code_judge_teacher/ui_elements/my_edit_text.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/exercise_datamodell.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
@@ -88,7 +88,7 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
               spacing: 8,
               children: [
                 Expanded(
-                  child: MyEditText(
+                  child: CodeJudgeEditText(
                     hint: appLocalizations.hintEnterName, // "Name:"
                     text: exercise?.name,
                     onInputDone: (value) {
@@ -129,7 +129,7 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
                 ),
               ],
             ),
-            MyEditText(
+            CodeJudgeEditText(
               hint: appLocalizations.hintEnterDescription, // "Description:"
               text: exercise?.description,
               onInputDone: (value) {
@@ -140,7 +140,7 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
                 db.updateExerciseDescription(value, widget.id);
               },
             ),
-            MyEditText(
+            CodeJudgeEditText(
               hint: appLocalizations.hintEnterTask, // "Task:"
               text: exercise?.task,
               onInputDone: (value) {
@@ -151,7 +151,7 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
                 db.updateExerciseTask(value, widget.id);
               },
             ),
-            MyEditText(
+            CodeJudgeEditText(
               hint: appLocalizations.hintEnterSolution, // "Solution:"
               text: exercise?.solution,
               onInputDone: (value) {
@@ -162,7 +162,7 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
                 db.updateExerciseSolution(value, widget.id);
               },
             ),
-            MyEditText(
+            CodeJudgeEditText(
               hint: appLocalizations.hintEnterHint, // "Hint:"
               text: exercise?.hint,
               onInputDone: (value) {
