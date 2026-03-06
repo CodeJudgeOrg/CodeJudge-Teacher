@@ -80,6 +80,10 @@ class MobileExercisePage extends StatelessWidget{
               final position = details.globalPosition;
               showContextMenu(context, position);
             },
+            onMenuClick: (position) {
+              // Open the context menu near the button
+              showContextMenu(context, position);
+            },
             onLongPress: (details){
               // TODO Select the item and mark it
             },
