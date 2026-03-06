@@ -142,12 +142,15 @@ class MyMobileItem extends StatelessWidget {
         splashColor: theme.colorScheme.primary.withAlpha(32),
         hoverColor: theme.colorScheme.tertiary.withAlpha(32),
         child: Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(8.0),
           alignment: Alignment.centerLeft,
           child: Row(
               children: [
                 Expanded(
-                  child: Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
