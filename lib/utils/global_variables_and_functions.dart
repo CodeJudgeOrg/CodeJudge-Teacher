@@ -2,6 +2,7 @@ library;
 
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/ui_elements/my_navigation_bar.dart';
+import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:flutter/material.dart';
 
 int selectedIndexInNavigationBar = 0;
@@ -15,9 +16,11 @@ List<MyNavigationBarItemData> getNavigationBarItems(BuildContext context) {
   ];
 }
 
-void showContextMenu(BuildContext context, Offset position){
+void showContextMenu(BuildContext context, Offset position, id){
   // Inflate the menu and add items to delete, select, etc.
   final appLocalizations = AppLocalizations.of(context)!;
+  final db = CodeJudgeTeacherDB();
+
   showMenu(
     context: context,
     position: RelativeRect.fromLTRB(
@@ -39,7 +42,8 @@ void showContextMenu(BuildContext context, Offset position){
   ).then((value) {
     switch (value) {
       case 1:
-        // TODO delete
+        // Delete an exercise
+        db.deleteExercise(id);
         break;
       case 2:
         // TODO Select exercises => Send button => Send them
