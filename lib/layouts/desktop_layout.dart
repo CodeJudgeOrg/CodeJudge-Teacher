@@ -1,9 +1,8 @@
 import 'package:code_judge_library/code_judge_list_items.dart';
+import 'package:code_judge_library/code_judge_navigation_bar.dart';
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
-import 'package:code_judge_teacher/main.dart';
 import 'package:code_judge_teacher/pages/add_or_edit_exercise_page.dart';
 import 'package:code_judge_teacher/pages/settings_page.dart';
-import 'package:code_judge_teacher/ui_elements/my_navigation_bar.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/exercise_datamodell.dart';
 import 'package:code_judge_teacher/utils/global_variables_and_functions.dart';
@@ -33,9 +32,9 @@ class _MobileLayoutState extends State<DesktopLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return MyNavigationBar(
+    return CodeJudgeNavigationBar(
       body: getSelectedPage(),
-      screenType: ScreenType.desktop,
+      screenType: CodeJudgeScreenType.desktop,
       selectedIndex: selectedIndexInNavigationBar,
       onItemSelected: (index) {
         if (index != 2) {
