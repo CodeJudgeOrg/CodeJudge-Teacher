@@ -1,8 +1,8 @@
+import 'package:code_judge_library/code_judge_list_items.dart';
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/main.dart';
 import 'package:code_judge_teacher/pages/add_or_edit_exercise_page.dart';
 import 'package:code_judge_teacher/pages/settings_page.dart';
-import 'package:code_judge_teacher/ui_elements/my_list_items.dart';
 import 'package:code_judge_teacher/ui_elements/my_navigation_bar.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/exercise_datamodell.dart';
@@ -72,7 +72,7 @@ class DesktopExercisePage extends StatelessWidget{
           exercises.length,
           (index) {
             final exercise = exercises[index];
-            return MyDesktopAndTabletItem(
+            return CodeJudgeDesktopAndTabletItem(
               title: exercise.name,
               note: appLocalizations.noteDifficultyLevel + exercise.difficultyLevel.toString(),
               onTap: (){
@@ -133,7 +133,7 @@ class DesktopSubmissionPage extends StatelessWidget{
         children: List.generate(
           items.length,
           (index) {
-            return MyDesktopAndTabletItem(
+            return CodeJudgeDesktopAndTabletItem(
               title: items[index].name,
               note: appLocalizations.noteDifficultyLevel + items[index].difficultyLevel.toString(),
               onTap: (){

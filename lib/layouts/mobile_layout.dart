@@ -1,8 +1,8 @@
+import 'package:code_judge_library/code_judge_list_items.dart';
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/main.dart';
 import 'package:code_judge_teacher/pages/add_or_edit_exercise_page.dart';
 import 'package:code_judge_teacher/pages/settings_page.dart';
-import 'package:code_judge_teacher/ui_elements/my_list_items.dart';
 import 'package:code_judge_teacher/ui_elements/my_navigation_bar.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/exercise_datamodell.dart';
@@ -69,7 +69,7 @@ class MobileExercisePage extends StatelessWidget{
         separatorBuilder: (context, index) => const SizedBox(height: 8),
         itemBuilder: (context, index) {
           final exercise = exercises[index];
-          return MyMobileItem(
+          return CodeJudgeMobileItem(
             title: exercise.name,
             note: appLocalizations.noteDifficultyLevel + exercise.difficultyLevel.toString(),
             onTap: (){
@@ -129,7 +129,7 @@ class MobileSubmissionPage extends StatelessWidget{
         itemCount: items.length,
         separatorBuilder: (context, index) => const SizedBox(height: 8),
         itemBuilder: (context, index) {
-          return MyMobileItem(
+          return CodeJudgeMobileItem(
             title: items[index].name,
             note: appLocalizations.noteDifficultyLevel + items[index].difficultyLevel.toString(),
             onTap: (){
