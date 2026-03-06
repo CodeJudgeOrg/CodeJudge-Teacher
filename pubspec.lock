@@ -73,6 +73,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  code_judge_library:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "v.1.0.0"
+      resolved-ref: "6ba1c190c3943751602e30fe0d27b4bedb22ba21"
+      url: "https://github.com/CodeJudgeOrg/CodeJudge-Library"
+    source: git
+    version: "1.0.0"
   collection:
     dependency: transitive
     description:
