@@ -18,7 +18,8 @@ import 'package:flutter/material.dart';
 class MyDesktopAndTabletItem extends StatelessWidget{
   final String title;
   final VoidCallback onTap;
-  final VoidCallback? onLongPress;
+  final ValueChanged<TapDownDetails>? onLongPress;
+  final ValueChanged<TapUpDetails>? onRightClick;
   final String note;
 
   const MyDesktopAndTabletItem({
@@ -26,19 +27,31 @@ class MyDesktopAndTabletItem extends StatelessWidget{
     required this.title,
     required this.onTap,
     this.onLongPress,
+    this.onRightClick,
     this.note = "",
   });
 
   @override
   Widget build(BuildContext context) {
     final theme =  Theme.of(context);
+    TapDownDetails? tapDetails;
 
     return Material(
       borderRadius: BorderRadius.circular(12),
       color: theme.colorScheme.surfaceContainerLow,
       child: InkWell(
         onTap: onTap,
-        onLongPress: onLongPress,
+        onTapDown: (details) { // Register each tap and store its position
+          tapDetails = details;
+        },
+        onLongPress: () {
+          if (tapDetails != null && onLongPress != null) {
+            onLongPress!.call(tapDetails!);
+          }
+        },
+        onSecondaryTapUp: onRightClick != null
+          ? (details) => onRightClick!.call(details)
+          : null,
         borderRadius: BorderRadius.circular(12),
         splashColor: theme.colorScheme.primary.withAlpha(32), // Ripple-color at click
         hoverColor: theme.colorScheme.tertiary.withAlpha(32),  // Hover-color
@@ -66,7 +79,8 @@ class MyDesktopAndTabletItem extends StatelessWidget{
 class MyMobileItem extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
-  final VoidCallback? onLongPress;
+  final ValueChanged<TapDownDetails>? onLongPress;
+  final ValueChanged<TapUpDetails>? onRightClick;
   final String note;
 
   const MyMobileItem({
@@ -74,19 +88,31 @@ class MyMobileItem extends StatelessWidget {
     required this.title,
     required this.onTap,
     this.onLongPress,
+    this.onRightClick,
     this.note = "",
   });
 
   @override
   Widget build(BuildContext context) {
     final theme =  Theme.of(context);
+    TapDownDetails? tapDetails;
 
     return Material(
       borderRadius: BorderRadius.circular(12),
       color: theme.colorScheme.surfaceContainerLow,
       child: InkWell(
         onTap: onTap,
-        onLongPress: onLongPress,
+        onTapDown: (details) { // Register each tap and store its position
+          tapDetails = details;
+        },
+        onLongPress: () {
+          if (tapDetails != null && onLongPress != null) {
+            onLongPress!.call(tapDetails!);
+          }
+        },
+        onSecondaryTapUp: onRightClick != null
+          ? (details) => onRightClick!.call(details)
+          : null,
         borderRadius: BorderRadius.circular(12),
         splashColor: theme.colorScheme.primary.withAlpha(32),
         hoverColor: theme.colorScheme.tertiary.withAlpha(32),
