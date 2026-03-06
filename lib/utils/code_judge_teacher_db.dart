@@ -163,10 +163,21 @@ class CodeJudgeTeacherDB {
         difficultyLevel: exercise[0][ExerciseTable.difficulty] as int,
         hint: exercise[0][ExerciseTable.hint] as String
       );
+      logger.i("Data successfully received!");
       return convertedExercise;
     } catch (e) {
       logger.e("Error: Couldn't receive the data (Code -2)\nid: $id \n\n$e");
       return null;
+    }
+  }
+  // Delete an exercise
+  void deleteExercise(int id) async {
+    final db = await code_judge_teacher_db;
+    try {
+      db.rawDelete("DELETE FROM ${ExerciseTable.table} WHERE ${ExerciseTable.id} = ?", [id]);
+      logger.i("Erxercise successfully deleted!");
+    } catch (e) {
+      logger.e("Error: Couldn't delete the exercise (Code -3)\nid: $id \n\n$e");
     }
   }
 }
