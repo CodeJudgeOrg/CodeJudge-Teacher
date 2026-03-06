@@ -83,4 +83,10 @@ class ExerciseProvider extends ChangeNotifier {
     exercises..removeAt(position)..insert(position, exercise);
     notifyListeners();
   }
+
+  // Delete an exercise
+  void deleteExercise(int id) {
+    exercises.removeWhere((item) => item.id == id);
+    notifyListeners();
+  }
 }
