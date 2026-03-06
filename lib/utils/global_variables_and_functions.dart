@@ -1,7 +1,7 @@
 library;
 
+import 'package:code_judge_library/code_judge_navigation_bar.dart';
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
-import 'package:code_judge_teacher/ui_elements/my_navigation_bar.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:flutter/material.dart';
