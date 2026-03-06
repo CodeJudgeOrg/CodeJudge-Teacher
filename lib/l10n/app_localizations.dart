@@ -119,6 +119,18 @@ abstract class AppLocalizations {
   /// **'New'**
   String get newExercise;
 
+  /// No description provided for @deleteExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deleteExercise;
+
+  /// No description provided for @selectExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get selectExercise;
+
   /// No description provided for @addExercise.
   ///
   /// In en, this message translates to:

@@ -6,6 +6,8 @@
   "exercises": "Exercises",
   "noteDifficultyLevel": "Level of difficulty: ",
   "newExercise": "New",
+  "deleteExercise": "Delete",
+  "selectExercise": "Select",
 
   "addExercise": "Add a new exercise",
   "editExercise": "Edit an exercise",
