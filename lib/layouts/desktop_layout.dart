@@ -6,7 +6,7 @@ import 'package:code_judge_teacher/ui_elements/my_list_items.dart';
 import 'package:code_judge_teacher/ui_elements/my_navigation_bar.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/exercise_datamodell.dart';
-import 'package:code_judge_teacher/utils/global_variables.dart';
+import 'package:code_judge_teacher/utils/global_variables_and_functions.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -77,7 +77,12 @@ class DesktopExercisePage extends StatelessWidget{
               onTap: (){
                 // Open editor
                 Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(id: exercises[index].id, isEditingAnExercise: true, position: index)));
-              }
+              },
+              onRightClick: (details) {
+                // Open the context menu
+                final position = details.globalPosition;
+                showContextMenu(context, position);
+              },
             );
           }
         ),
