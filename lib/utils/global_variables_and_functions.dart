@@ -3,7 +3,9 @@ library;
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/ui_elements/my_navigation_bar.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
+import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 int selectedIndexInNavigationBar = 0;
 
@@ -44,6 +46,7 @@ void showContextMenu(BuildContext context, Offset position, id){
       case 1:
         // Delete an exercise
         db.deleteExercise(id);
+        context.read<ExerciseProvider>().deleteExercise(id);
         break;
       case 2:
         // TODO Select exercises => Send button => Send them
