@@ -20,6 +20,7 @@ class MyDesktopAndTabletItem extends StatelessWidget{
   final VoidCallback onTap;
   final ValueChanged<TapDownDetails>? onLongPress;
   final ValueChanged<TapUpDetails>? onRightClick;
+  final ValueChanged<Offset>? onMenuClick;
   final String note;
 
   const MyDesktopAndTabletItem({
@@ -28,6 +29,7 @@ class MyDesktopAndTabletItem extends StatelessWidget{
     required this.onTap,
     this.onLongPress,
     this.onRightClick,
+    this.onMenuClick,
     this.note = "",
   });
 
@@ -35,6 +37,7 @@ class MyDesktopAndTabletItem extends StatelessWidget{
   Widget build(BuildContext context) {
     final theme =  Theme.of(context);
     TapDownDetails? tapDetails;
+    final GlobalKey buttonKey = GlobalKey();
 
     return Material(
       borderRadius: BorderRadius.circular(12),
@@ -56,17 +59,36 @@ class MyDesktopAndTabletItem extends StatelessWidget{
         splashColor: theme.colorScheme.primary.withAlpha(32), // Ripple-color at click
         hoverColor: theme.colorScheme.tertiary.withAlpha(32),  // Hover-color
         child: Container(
-          padding: const EdgeInsets.all(16),
           alignment: Alignment.center,
           child: Stack(
             children: [
+              Positioned(
+                top: 2,
+                right: 2,
+                child: IconButton(
+                  key: buttonKey,
+                  onPressed: () {
+                    // Get the position of the button
+                    final RenderBox button = buttonKey.currentContext!.findRenderObject() as RenderBox;
+                    Offset position = button.localToGlobal(Offset.zero,);
+
+                    if (onMenuClick != null) {
+                      onMenuClick!.call(position);
+                    }
+                  },
+                  icon: Icon(
+                    Icons.more_vert_outlined,
+                    size: 20,
+                  ),
+                ),
+              ),
               Center(
                 child: Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
               ),
               Positioned(
-                bottom: 0,
-                right: 0,
-                child: Text(note, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w200))
+                bottom: 12,
+                right: 18,
+                child: Text(note, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300))
               ),
             ],
           )
@@ -81,6 +103,7 @@ class MyMobileItem extends StatelessWidget {
   final VoidCallback onTap;
   final ValueChanged<TapDownDetails>? onLongPress;
   final ValueChanged<TapUpDetails>? onRightClick;
+  final ValueChanged<Offset>? onMenuClick;
   final String note;
 
   const MyMobileItem({
@@ -89,6 +112,7 @@ class MyMobileItem extends StatelessWidget {
     required this.onTap,
     this.onLongPress,
     this.onRightClick,
+    this.onMenuClick,
     this.note = "",
   });
 
@@ -96,6 +120,7 @@ class MyMobileItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme =  Theme.of(context);
     TapDownDetails? tapDetails;
+    final GlobalKey buttonKey = GlobalKey();
 
     return Material(
       borderRadius: BorderRadius.circular(12),
@@ -124,7 +149,26 @@ class MyMobileItem extends StatelessWidget {
                 Expanded(
                   child: Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 ),
-                Text(note, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w200))
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Text(note, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w200)),
+                ),
+                IconButton(
+                  key: buttonKey,
+                  onPressed: () {
+                    // Get the position of the button
+                    final RenderBox button = buttonKey.currentContext!.findRenderObject() as RenderBox;
+                    Offset position = button.localToGlobal(Offset.zero,);
+
+                    if (onMenuClick != null) {
+                      onMenuClick!.call(position);
+                    }
+                  },
+                  icon: Icon(
+                    Icons.more_vert_outlined,
+                    size: 20,
+                  ),
+                ),
               ],
             )
         ),
