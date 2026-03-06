@@ -1,9 +1,9 @@
+import 'package:code_judge_library/exercise_datamodel.dart';
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/layouts/desktop_layout.dart';
 import 'package:code_judge_teacher/layouts/mobile_layout.dart';
 import 'package:code_judge_teacher/layouts/tablet_layout.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
-import 'package:code_judge_teacher/utils/exercise_datamodell.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
 
   void getExercises(BuildContext context) async {
     final CodeJudgeTeacherDB db = CodeJudgeTeacherDB();
-    List<ExerciseDatamodell>? exercises = await db.getAllExercises();
+    List<ExerciseDatamodel>? exercises = await db.getAllExercises();
     if (exercises != null) {
       context.read<ExerciseProvider>().insertExercises(exercises);
     }

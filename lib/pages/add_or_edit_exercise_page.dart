@@ -1,7 +1,7 @@
 import 'package:code_judge_library/code_judge_edit_text.dart';
+import 'package:code_judge_library/exercise_datamodel.dart';
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
-import 'package:code_judge_teacher/utils/exercise_datamodell.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +26,7 @@ class AddOrEditExercisePage extends StatefulWidget{
 class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
   int currentValue = 1;
   // Store the entered data and update the provider depending on it
-  ExerciseDatamodell? exercise;
+  ExerciseDatamodel? exercise;
   late CodeJudgeTeacherDB db;
 
   @override
@@ -38,7 +38,7 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
     if (widget.isEditingAnExercise) {
       loadExerciseData();
     } else {
-      exercise = ExerciseDatamodell(
+      exercise = ExerciseDatamodel(
         id: widget.id,
         name: "",
         description: "",
@@ -186,7 +186,7 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
       exercise = result;
       setState(() {});
     } else {
-      exercise = ExerciseDatamodell(
+      exercise = ExerciseDatamodel(
         id: widget.id,
         name: "",
         description: "",

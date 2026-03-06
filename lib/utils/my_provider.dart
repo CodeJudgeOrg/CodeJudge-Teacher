@@ -1,4 +1,4 @@
-import 'package:code_judge_teacher/utils/exercise_datamodell.dart';
+import 'package:code_judge_library/exercise_datamodel.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -64,22 +64,22 @@ class SettingsController extends ChangeNotifier {
 
 // Store and update the displayed list of exercises
 class ExerciseProvider extends ChangeNotifier {
-  List<ExerciseDatamodell> exercises = [];
+  List<ExerciseDatamodel> exercises = [];
 
   // Insert an exercise
-  void insertExercise(ExerciseDatamodell exercise) {
+  void insertExercise(ExerciseDatamodel exercise) {
     exercises.add(exercise);
     notifyListeners();
   }
 
   // Insert all exercises
-  void insertExercises(List<ExerciseDatamodell> newExercises) {
+  void insertExercises(List<ExerciseDatamodel> newExercises) {
     exercises..clear()..addAll(newExercises);
     notifyListeners();
   }
 
   // Edit an exercise
-  void editExercise(ExerciseDatamodell exercise, int position) {
+  void editExercise(ExerciseDatamodel exercise, int position) {
     exercises..removeAt(position)..insert(position, exercise);
     notifyListeners();
   }

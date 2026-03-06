@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:code_judge_teacher/utils/exercise_datamodell.dart';
+import 'package:code_judge_library/exercise_datamodel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:path/path.dart';
@@ -128,12 +128,12 @@ class CodeJudgeTeacherDB {
     }
   }
   // Receive a list of all exercises
-  Future<List<ExerciseDatamodell>?> getAllExercises() async {
+  Future<List<ExerciseDatamodel>?> getAllExercises() async {
     final db = await code_judge_teacher_db;
     try {
       // Receive all dishes and crete a usable list
       final exercises = await db.rawQuery("SELECT * FROM ${ExerciseTable.table}");
-      List<ExerciseDatamodell> convertedExercises = exercises.map((exercises) => ExerciseDatamodell(
+      List<ExerciseDatamodel> convertedExercises = exercises.map((exercises) => ExerciseDatamodel(
         id: exercises[ExerciseTable.id] as int,
         name: exercises[ExerciseTable.name] as String,
         description: exercises[ExerciseTable.description] as String,
@@ -150,11 +150,11 @@ class CodeJudgeTeacherDB {
       return null;
     }
   }
-  Future<ExerciseDatamodell?> getDataOfExercise(int id) async {
+  Future<ExerciseDatamodel?> getDataOfExercise(int id) async {
     final db = await code_judge_teacher_db;
     try {
       final exercise = await db.rawQuery("SELECT * FROM ${ExerciseTable.table} WHERE ${ExerciseTable.id} = $id");
-      final convertedExercise =  ExerciseDatamodell(
+      final convertedExercise =  ExerciseDatamodel(
         id: exercise[0][ExerciseTable.id] as int,
         name: exercise[0][ExerciseTable.name] as String,
         description: exercise[0][ExerciseTable.description] as String,
@@ -209,5 +209,3 @@ class ExerciseTable {
 
 // TODO:
 // - Delete all exercises
-// - Delete an exercise
-// => Update the displayed list depending on this
