@@ -68,21 +68,22 @@ class MobileExercisePage extends StatelessWidget{
         itemCount: exercises.length,
         separatorBuilder: (context, index) => const SizedBox(height: 8),
         itemBuilder: (context, index) {
+          final exercise = exercises[index];
           return MyMobileItem(
-            title: exercises[index].name,
-            note: appLocalizations.noteDifficultyLevel + exercises[index].difficultyLevel.toString(),
+            title: exercise.name,
+            note: appLocalizations.noteDifficultyLevel + exercise.difficultyLevel.toString(),
             onTap: (){
               // Open editor
-              Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(id: exercises[index].id, isEditingAnExercise: true, position: index)));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(id: exercise.id, isEditingAnExercise: true, position: index)));
             },
             onRightClick: (details) {
               // Open the context menu
               final position = details.globalPosition;
-              showContextMenu(context, position);
+              showContextMenu(context, position, exercise.id);
             },
             onMenuClick: (position) {
               // Open the context menu near the button
-              showContextMenu(context, position);
+              showContextMenu(context, position, exercise.id);
             },
             onLongPress: (details){
               // TODO Select the item and mark it
