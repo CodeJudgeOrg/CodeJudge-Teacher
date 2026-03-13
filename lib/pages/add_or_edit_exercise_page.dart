@@ -1,6 +1,7 @@
 import 'package:code_judge_library/code_judge_edit_text.dart';
 import 'package:code_judge_library/exercise_datamodel.dart';
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
+import 'package:code_judge_teacher/main.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +12,13 @@ class AddOrEditExercisePage extends StatefulWidget{
   final int id;
   final int position;
   final bool isEditingAnExercise;
+  final ScreenType screenType;
 
   const AddOrEditExercisePage({
     super.key,
     required this.id,
     required this.isEditingAnExercise,
+    this.screenType = ScreenType.desktop,
     this.position = 0,
   });
 
@@ -84,11 +87,8 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
         child: Column(
           spacing: 8,
           children: [
-            Row(
-              spacing: 8,
-              children: [
-                Expanded(
-                  child: CodeJudgeEditText(
+            widget.screenType == ScreenType.mobile
+              ? CodeJudgeEditText(
                     hint: appLocalizations.hintEnterName, // "Name:"
                     text: exercise?.name,
                     onInputDone: (value) {
@@ -98,37 +98,78 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
                         exercise!.name = value.trim();
                       }
                     },
-                  ),
-                ),
-                SizedBox(
-                  width: 375,
-                  child: ListTile(
-                    title: Text(appLocalizations.selectDifficultyLevel), // "Level of difficulty:"
-                    trailing: DropdownButtonHideUnderline(
-                      child: DropdownButton<int>(
-                        focusNode: difficultyLevelFocusNode,
-                        value: exercise != null ? exercise!.difficultyLevel: 1,
-                        items: [
-                          DropdownMenuItem(value: 1, child: Text(appLocalizations.simpleLevel)), // "Beginner"
-                          DropdownMenuItem(value: 2, child: Text(appLocalizations.mediumLevel)), // "Intermediate"
-                          DropdownMenuItem(value: 3, child: Text(appLocalizations.difficultLevel)), // "Professional"
-                        ],
-                        onChanged: (value) {
-                          // Save the new value
-                          if (exercise != null && value != null) {
-                            exercise!.difficultyLevel = value;
-                            db.updateExerciseDifficulty(value, widget.id);
-                          }
-                          // Higlight selected item
-                          setState(() {});
-                          FocusScope.of(context).requestFocus(FocusNode());
-                        },
-                      )
+                  )
+              : Row(
+                spacing: 8,
+                children: [
+                  Expanded(
+                    child: CodeJudgeEditText(
+                      hint: appLocalizations.hintEnterName, // "Name:"
+                      text: exercise?.name,
+                      onInputDone: (value) {
+                        // Store the name
+                        db.updateExerciseName(value.trim(), widget.id);
+                        if (exercise != null) {
+                          exercise!.name = value.trim();
+                        }
+                      },
                     ),
                   ),
-                ),
-              ],
-            ),
+                  SizedBox(
+                    width: 375,
+                    child: ListTile(
+                      title: Text(appLocalizations.selectDifficultyLevel), // "Level of difficulty:"
+                      trailing: DropdownButtonHideUnderline(
+                        child: DropdownButton<int>(
+                          focusNode: difficultyLevelFocusNode,
+                          value: exercise != null ? exercise!.difficultyLevel: 1,
+                          items: [
+                            DropdownMenuItem(value: 1, child: Text(appLocalizations.simpleLevel)), // "Beginner"
+                            DropdownMenuItem(value: 2, child: Text(appLocalizations.mediumLevel)), // "Intermediate"
+                            DropdownMenuItem(value: 3, child: Text(appLocalizations.difficultLevel)), // "Professional"
+                          ],
+                          onChanged: (value) {
+                            // Save the new value
+                            if (exercise != null && value != null) {
+                              exercise!.difficultyLevel = value;
+                              db.updateExerciseDifficulty(value, widget.id);
+                            }
+                            // Higlight selected item
+                            setState(() {});
+                            FocusScope.of(context).requestFocus(FocusNode());
+                          },
+                        )
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            widget.screenType == ScreenType.mobile
+              ? ListTile(
+                  title: Text(appLocalizations.selectDifficultyLevel), // "Level of difficulty:"
+                  trailing: DropdownButtonHideUnderline(
+                    child: DropdownButton<int>(
+                      focusNode: difficultyLevelFocusNode,
+                      value: exercise != null ? exercise!.difficultyLevel: 1,
+                      items: [
+                        DropdownMenuItem(value: 1, child: Text(appLocalizations.simpleLevel)), // "Beginner"
+                        DropdownMenuItem(value: 2, child: Text(appLocalizations.mediumLevel)), // "Intermediate"
+                        DropdownMenuItem(value: 3, child: Text(appLocalizations.difficultLevel)), // "Professional"
+                      ],
+                      onChanged: (value) {
+                        // Save the new value
+                        if (exercise != null && value != null) {
+                          exercise!.difficultyLevel = value;
+                          db.updateExerciseDifficulty(value, widget.id);
+                        }
+                        // Higlight selected item
+                        setState(() {});
+                        FocusScope.of(context).requestFocus(FocusNode());
+                      },
+                    )
+                  ),
+                )
+              : const SizedBox.shrink(),
             CodeJudgeEditText(
               hint: appLocalizations.hintEnterDescription, // "Description:"
               text: exercise?.description,
