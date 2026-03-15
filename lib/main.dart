@@ -5,20 +5,23 @@ import 'package:code_judge_teacher/layouts/mobile_layout.dart';
 import 'package:code_judge_teacher/layouts/tablet_layout.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
+import 'package:code_judge_teacher/utils/screen_type_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   final exerciseProvider = ExerciseProvider();
+  final screenTypeProvider = ScreenTypeProvider();
   // Load the settings
   final settingsProvider = SettingsController();
-  await settingsProvider.loadSettings;
+  settingsProvider.loadSettings;
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => screenTypeProvider),
         ChangeNotifierProvider(create: (_) => exerciseProvider),
-        ChangeNotifierProvider(create: (_) => settingsProvider)
+        ChangeNotifierProvider(create: (_) => settingsProvider),
       ],
       child: const MyApp(),
     ),
@@ -42,27 +45,34 @@ class MyApp extends StatelessWidget {
       colorScheme: ColorScheme.fromSeed(seedColor: Colors.lime, brightness: Brightness.dark),
       useMaterial3: true,
     );
+    ScreenType screenType = context.watch<ScreenTypeProvider>().screenType;
 
     // Load the exercises from the DB
     getExercises(context);
 
-    return MaterialApp(
-      // Apply the theme
-      title: 'CodeJudge',
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      themeMode: settingsController.selectedTheme,
-
-      // Apply settings & language
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        AppLocalizations.delegate
-      ],
-      supportedLocales: const [Locale('en'), Locale('de')],
-      locale: settingsController.selectedLocale,
-      home: HomepageLayoutHandler(),
+    return ScreenTypeHandler(
+      child: MaterialApp(
+        // Apply the theme
+        title: 'CodeJudge',
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        themeMode: settingsController.selectedTheme,
+      
+        // Apply settings & language
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          AppLocalizations.delegate
+        ],
+        supportedLocales: const [Locale('en'), Locale('de')],
+        locale: settingsController.selectedLocale,
+        home: screenType == ScreenType.desktop
+          ? DesktopLayout()
+          : screenType == ScreenType.tablet
+            ? TabletLayout()
+            : MobileLayout(),
+      ),
     );
   }
 
@@ -72,44 +82,5 @@ class MyApp extends StatelessWidget {
     if (exercises != null) {
       context.read<ExerciseProvider>().insertExercises(exercises);
     }
-  }
-}
-
-// Store the screen-type
-enum ScreenType {mobile, tablet, desktop}
-
-// Apply the correct layout depending on the screen-type
-class HomepageLayoutHandler extends StatelessWidget {
-  const HomepageLayoutHandler({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constrains) {
-        // Use the correct layout depending on ScreenType
-        final screenType = getScreenType(constrains.maxWidth);
-        switch (screenType) {
-          case ScreenType.desktop:
-          return DesktopLayout();
-          case ScreenType.tablet:
-            return TabletLayout();
-          case ScreenType.mobile:
-            return MobileLayout();
-        }
-      },
-    );
-  }
-  // Define the screen-type
-  ScreenType getScreenType (double width) {
-    // For desktops
-    if (width >= 1200) {
-      return ScreenType.desktop;
-    }
-    // For tablets
-    if (width >= 900) {
-      return ScreenType.tablet;
-    }
-    // Else it's a mobile phone
-    return ScreenType.mobile;
   }
 }
