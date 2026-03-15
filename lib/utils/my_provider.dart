@@ -1,4 +1,5 @@
 import 'package:code_judge_library/exercise_datamodel.dart';
+import 'package:code_judge_teacher/utils/screen_type_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -87,6 +88,15 @@ class ExerciseProvider extends ChangeNotifier {
   // Delete an exercise
   void deleteExercise(int id) {
     exercises.removeWhere((item) => item.id == id);
+    notifyListeners();
+  }
+}
+
+class ScreenTypeProvider extends ChangeNotifier {
+  ScreenType screenType = ScreenType.tablet;
+
+  void changeScreenType (ScreenType newScreenType) {
+    screenType = newScreenType;
     notifyListeners();
   }
 }
