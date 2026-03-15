@@ -2,7 +2,6 @@ import 'package:code_judge_library/code_judge_list_items.dart';
 import 'package:code_judge_library/code_judge_navigation_bar.dart';
 import 'package:code_judge_library/exercise_datamodel.dart';
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
-import 'package:code_judge_teacher/main.dart';
 import 'package:code_judge_teacher/pages/add_or_edit_exercise_page.dart';
 import 'package:code_judge_teacher/pages/settings_page.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
@@ -74,7 +73,7 @@ class MobileExercisePage extends StatelessWidget{
             note: appLocalizations.noteDifficultyLevel + exercise.difficultyLevel.toString(),
             onTap: (){
               // Open editor
-              Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(id: exercise.id, isEditingAnExercise: true, position: index, screenType: ScreenType.mobile)));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(id: exercise.id, isEditingAnExercise: true, position: index)));
             },
             onRightClick: (details) {
               // Open the context menu
@@ -99,7 +98,7 @@ class MobileExercisePage extends StatelessWidget{
           int? id = await CodeJudgeTeacherDB().insertNewExercise();
           if (id != null) {
             // Open a page to add a new exercise
-            Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(isEditingAnExercise: false, id: id, screenType: ScreenType.mobile,)));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(isEditingAnExercise: false, id: id)));
           }
         },
       ),
