@@ -1,7 +1,7 @@
 import 'package:code_judge_library/code_judge_edit_text.dart';
 import 'package:code_judge_library/exercise_datamodel.dart';
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
-import 'package:code_judge_teacher/main.dart';
+import 'package:code_judge_teacher/utils/screen_type_handler.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +12,11 @@ class AddOrEditExercisePage extends StatefulWidget{
   final int id;
   final int position;
   final bool isEditingAnExercise;
-  final ScreenType screenType;
 
   const AddOrEditExercisePage({
     super.key,
     required this.id,
     required this.isEditingAnExercise,
-    this.screenType = ScreenType.desktop,
     this.position = 0,
   });
 
@@ -58,6 +56,7 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
     final theme = Theme.of(context);
     final appLocalizations = AppLocalizations.of(context)!;
     final difficultyLevelFocusNode = FocusNode();
+    ScreenType screenType = context.watch<ScreenTypeProvider>().screenType;
 
     return Scaffold(
       appBar: AppBar(
@@ -87,7 +86,7 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
         child: Column(
           spacing: 8,
           children: [
-            widget.screenType == ScreenType.mobile
+            screenType == ScreenType.mobile
               ? CodeJudgeEditText(
                     hint: appLocalizations.hintEnterName, // "Name:"
                     text: exercise?.name,
@@ -144,7 +143,7 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
                   ),
                 ],
               ),
-            widget.screenType == ScreenType.mobile
+            screenType == ScreenType.mobile
               ? ListTile(
                   title: Text(appLocalizations.selectDifficultyLevel), // "Level of difficulty:"
                   trailing: DropdownButtonHideUnderline(
