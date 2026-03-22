@@ -4,11 +4,13 @@ import 'package:code_judge_library/exercise_datamodel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 class CodeJudgeTeacherDB {
   final Logger logger = Logger();
+  late final DatabaseFactory codeJudgeDBFactory;
   Database? db;
 
   // ##########################################################################################
@@ -17,12 +19,11 @@ class CodeJudgeTeacherDB {
   CodeJudgeTeacherDB() {
     // Chosse correct SQLite library depending on the platform
     if (kIsWeb) {
-      databaseFactory = databaseFactoryFfiWeb;
+      codeJudgeDBFactory = databaseFactoryFfiWeb;
     } else if(Platform.isAndroid || Platform.isIOS) {
-      databaseFactory = databaseFactory;
+      codeJudgeDBFactory = databaseFactory;
     } else {
-      sqfliteFfiInit();
-      databaseFactory = databaseFactoryFfi;
+      codeJudgeDBFactory = databaseFactoryFfi;
     }
   }
 
@@ -37,9 +38,20 @@ class CodeJudgeTeacherDB {
 
   // Define the structure of the DB
   Future<Database> initDB() async {
-    final path = join(await getDatabasesPath(), 'CodeJudge-Teacher.db');
-    return await databaseFactory.openDatabase(
-      path,
+    late final String dbPath;
+
+    // Use the correct path depending on the platform
+    if (kIsWeb) {
+      dbPath = 'CodeJudge-Teacher.db';
+    } else if (Platform.isAndroid || Platform.isIOS) {
+      dbPath = join(await getDatabasesPath(), 'CodeJudge-Teacher.db');
+    } else {
+      final directory = await getApplicationSupportDirectory();
+      dbPath = join(directory.path, 'CodeJudge-Teacher.db');
+    }
+    
+    return await codeJudgeDBFactory.openDatabase(
+      dbPath,
       options: OpenDatabaseOptions(
         version: 1,
         onCreate: (db, version) async {
