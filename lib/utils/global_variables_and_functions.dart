@@ -12,9 +12,9 @@ int selectedIndexInNavigationBar = 0;
 List<MyNavigationBarItemData> getNavigationBarItems(BuildContext context) {
   final appLocalizations = AppLocalizations.of(context)!;
   return [
-    MyNavigationBarItemData(icon: Icons.code, label: appLocalizations.submissions), // Submission
-    MyNavigationBarItemData(icon: Icons.code, label: appLocalizations.exercises), // Exercises
-    MyNavigationBarItemData(icon: Icons.settings, label: appLocalizations.settings), // Settings
+    MyNavigationBarItemData(icon: Icons.assignment_returned_outlined, label: appLocalizations.submissions), // Submission
+    MyNavigationBarItemData(icon: Icons.task_alt_outlined, label: appLocalizations.exercises), // Exercises
+    MyNavigationBarItemData(icon: Icons.settings_outlined, label: appLocalizations.settings), // Settings
   ];
 }
 
