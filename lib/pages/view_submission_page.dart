@@ -1,4 +1,5 @@
 import 'package:code_judge_library/code_judge_task_box.dart';
+import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class ViewSubmissionPage extends StatelessWidget{
@@ -19,7 +20,7 @@ class ViewSubmissionPage extends StatelessWidget{
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Submission by $studentName"), // TODO Translate
+        title: Text("${AppLocalizations.of(context)!.submissionTitle} $studentName"),
         backgroundColor: theme.colorScheme.primaryContainer,
       ),
       body: CodeJudgeTaskBox(
