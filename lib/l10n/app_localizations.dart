@@ -197,6 +197,12 @@ abstract class AppLocalizations {
   /// **'Hint:'**
   String get hintEnterHint;
 
+  /// No description provided for @submissionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Submission by'**
+  String get submissionTitle;
+
   /// No description provided for @settings.
   ///
   /// In en, this message translates to:

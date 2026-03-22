@@ -60,6 +60,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get hintEnterHint => 'Hinweis:';
 
   @override
+  String get submissionTitle => 'Abgabe von';
+
+  @override
   String get settings => 'Einstellungen';
 
   @override
