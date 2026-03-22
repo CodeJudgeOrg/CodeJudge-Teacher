@@ -77,8 +77,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v.1.0.0"
-      resolved-ref: "6ba1c190c3943751602e30fe0d27b4bedb22ba21"
+      ref: HEAD
+      resolved-ref: "0ce38f132203901b1c84f24e4eefc56338c8ad28"
       url: "https://github.com/CodeJudgeOrg/CodeJudge-Library"
     source: git
     version: "1.0.0"
@@ -126,10 +126,10 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "6f6b30cba0301e7b38f32bdc9a6bdae6f5921a55f0a1eb9450e1e6515645dbb2"
+      sha256: "29f7ecc274a86d32920b1d9cfc7502fa87220da41ec60b55f329559d5732e2b2"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.6"
+    version: "3.1.7"
   dartx:
     dependency: transitive
     description:
@@ -142,10 +142,10 @@ packages:
     dependency: transitive
     description:
       name: dev_build
-      sha256: d29f1461f10d8d6450f79d68fc461fda7783c27d7b16e7eb84990f2a3aa0ad3f
+      sha256: "1a8151608658f63b3930f9a9d04a5da741af2ec689ae9520d4fe1dfed3e5f210"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.4"
+    version: "1.1.5"
   fake_async:
     dependency: transitive
     description:
@@ -158,10 +158,10 @@ packages:
     dependency: transitive
     description:
       name: ffi
-      sha256: d07d37192dbf97461359c1518788f203b0c9102cfd2c35a716b823741219542c
+      sha256: "6d7fd89431262d8f3125e81b50d3847a091d846eafcd4fdb88dd06f36d705a45"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.5"
+    version: "2.2.0"
   file:
     dependency: transitive
     description:
@@ -179,18 +179,18 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_gen
-      sha256: eac4863b65813aacbf16ecc07e7c271ab82fb2d95181825348f1fb7b03fd52da
+      sha256: "1003c34680624fabea4327655ccd259ca4cb3912d8451868153d997da2195843"
       url: "https://pub.dev"
     source: hosted
-    version: "5.12.0"
+    version: "5.13.0+1"
   flutter_gen_core:
     dependency: transitive
     description:
       name: flutter_gen_core
-      sha256: b6bafbbd981da2f964eb45bcb8b8a7676a281084f8922c0c75de4cfbaa849311
+      sha256: "22b3198a4cb1255841a3662b41adad35d36d9037fcd9d129858240030417e0b1"
       url: "https://pub.dev"
     source: hosted
-    version: "5.12.0"
+    version: "5.13.0+1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -234,10 +234,10 @@ packages:
     dependency: transitive
     description:
       name: hooks
-      sha256: "7a08a0d684cb3b8fb604b78455d5d352f502b68079f7b80b831c62220ab0a4f6"
+      sha256: e79ed1e8e1929bc6ecb6ec85f0cb519c887aa5b423705ded0d0f2d9226def388
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   http:
     dependency: transitive
     description:
@@ -322,10 +322,10 @@ packages:
     dependency: "direct main"
     description:
       name: logger
-      sha256: a7967e31b703831a893bbc3c3dd11db08126fe5f369b5c648a36f821979f5be3
+      sha256: "25aee487596a6257655a1e091ec2ae66bc30e7af663592cc3a27e6591e05035c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.2"
+    version: "2.7.0"
   logging:
     dependency: transitive
     description:
@@ -370,10 +370,10 @@ packages:
     dependency: transitive
     description:
       name: native_toolchain_c
-      sha256: "89e83885ba09da5fdf2cdacc8002a712ca238c28b7f717910b34bcd27b0d03ac"
+      sha256: "6ba77bb18063eebe9de401f5e6437e95e1438af0a87a3a39084fbd37c90df572"
       url: "https://pub.dev"
     source: hosted
-    version: "0.17.4"
+    version: "0.17.6"
   nested:
     dependency: transitive
     description:
@@ -506,10 +506,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: cbc40be9be1c5af4dab4d6e0de4d5d3729e6f3d65b89d21e1815d57705644a6f
+      sha256: "8374d6200ab33ac99031a852eba4c8eb2170c4bf20778b3e2c9eccb45384fb41"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.20"
+    version: "2.4.21"
   shared_preferences_foundation:
     dependency: transitive
     description:
@@ -575,10 +575,10 @@ packages:
     dependency: transitive
     description:
       name: sqflite_android
-      sha256: ecd684501ebc2ae9a83536e8b15731642b9570dc8623e0073d227d0ee2bfea88
+      sha256: "881e28efdcc9950fd8e9bb42713dcf1103e62a2e7168f23c9338d82db13dec40"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.2+2"
+    version: "2.4.2+3"
   sqflite_common:
     dependency: transitive
     description:
@@ -623,10 +623,10 @@ packages:
     dependency: transitive
     description:
       name: sqlite3
-      sha256: b7cf6b37667f6a921281797d2499ffc60fb878b161058d422064f0ddc78f6aa6
+      sha256: caa693ad15a587a2b4fde093b728131a1827903872171089dedb16f7665d3a91
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.6"
+    version: "3.2.0"
   stack_trace:
     dependency: transitive
     description:
@@ -711,10 +711,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_ios
-      sha256: cfde38aa257dae62ffe79c87fab20165dfdf6988c1d31b58ebf59b9106062aad
+      sha256: "580fe5dfb51671ae38191d316e027f6b76272b026370708c2d898799750a02b0"
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.6"
+    version: "6.4.1"
   url_launcher_linux:
     dependency: transitive
     description:

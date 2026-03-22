@@ -48,7 +48,7 @@ dependencies:
   code_judge_library:
     git:
       url: https://github.com/CodeJudgeOrg/CodeJudge-Library
-      ref: v.1.0.0
+      #ref: v.1.0.0
 
 dev_dependencies:
   flutter_test:
