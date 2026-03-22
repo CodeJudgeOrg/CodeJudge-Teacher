@@ -23,12 +23,16 @@ class ViewSubmissionPage extends StatelessWidget{
         title: Text("${AppLocalizations.of(context)!.submissionTitle} $studentName"),
         backgroundColor: theme.colorScheme.primaryContainer,
       ),
-      body: CodeJudgeTaskBox(
-        task: task,
-        child: Text(
-          submission,
-          textAlign: TextAlign.left,
-        ),
+      body: Column(
+        children: [
+          CodeJudgeTaskBox(
+            task: task,
+            child: Text(
+              submission,
+              textAlign: TextAlign.left,
+            ),
+          ),
+        ]
       ),
     );
   }
