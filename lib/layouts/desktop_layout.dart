@@ -4,6 +4,7 @@ import 'package:code_judge_library/exercise_datamodel.dart';
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/pages/add_or_edit_exercise_page.dart';
 import 'package:code_judge_teacher/pages/settings_page.dart';
+import 'package:code_judge_teacher/pages/view_submission_page.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/global_variables_and_functions.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
@@ -136,7 +137,12 @@ class DesktopSubmissionPage extends StatelessWidget{
               title: items[index].name,
               note: appLocalizations.noteDifficultyLevel + items[index].difficultyLevel.toString(),
               onTap: (){
-                // TODO Open editor
+                // Display the submission
+                Navigator.push(context, MaterialPageRoute(builder: (builder) => ViewSubmissionPage(
+                  task: "Test",
+                  submission: "Test",
+                  studentName: "FR"
+                ))); // TODO: Provide the correct values
               }
             );
           }
