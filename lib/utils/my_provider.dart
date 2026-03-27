@@ -90,6 +90,12 @@ class ExerciseProvider extends ChangeNotifier {
     exercises.removeWhere((item) => item.id == id);
     notifyListeners();
   }
+
+  // Select or unselect an exercise
+  void toggleSelectionOfExercise(int position, bool select) {
+    exercises[position].isSelected = select;
+    notifyListeners();
+  }
 }
 
 class ScreenTypeProvider extends ChangeNotifier {
