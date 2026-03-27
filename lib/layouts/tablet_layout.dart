@@ -76,18 +76,30 @@ class TabletExercisePage extends StatelessWidget{
             return CodeJudgeDesktopAndTabletItem(
               title: exercise.name,
               note: appLocalizations.noteDifficultyLevel + exercise.difficultyLevel.toString(),
+              isSelected: exercise.isSelected,
               onTap: (){
+                // If this exercise is selected, unselect it
+                if (exercise.isSelected) {
+                  context.read<ExerciseProvider>().toggleSelectionOfExercise(index, false);
+                  return;
+                }
+
                 // Open editor
                 Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(id: exercise.id, isEditingAnExercise: true, position: index)));
               },
               onRightClick: (details) {
                 // Open the context menu
                 final position = details.globalPosition;
-                showContextMenu(context, position, exercise.id);
+                showContextMenu(context, position, exercise.id, index);
               },
               onMenuClick: (position) {
                 // Open the context menu near the button
-                showContextMenu(context, position, exercise.id);
+                showContextMenu(context, position, exercise.id, index);
+              },
+              onLongPress: (value) {
+                // Select this exercise
+                context.read<ExerciseProvider>().toggleSelectionOfExercise(index, true);
+                // TODO Send button => Send them
               },
             );
           }
