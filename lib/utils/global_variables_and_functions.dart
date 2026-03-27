@@ -18,7 +18,7 @@ List<MyNavigationBarItemData> getNavigationBarItems(BuildContext context) {
   ];
 }
 
-void showContextMenu(BuildContext context, Offset position, id){
+void showContextMenu(BuildContext context, Offset position, int id, int itemPosition){
   // Inflate the menu and add items to delete, select, etc.
   final appLocalizations = AppLocalizations.of(context)!;
   final db = CodeJudgeTeacherDB();
@@ -49,7 +49,9 @@ void showContextMenu(BuildContext context, Offset position, id){
         context.read<ExerciseProvider>().deleteExercise(id);
         break;
       case 2:
-        // TODO Select exercises => Send button => Send them
+        // Select exercises
+        context.read<ExerciseProvider>().toggleSelectionOfExercise(itemPosition, true);
+        break;
     }
   });
 }
