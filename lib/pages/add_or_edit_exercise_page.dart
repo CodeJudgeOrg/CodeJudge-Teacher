@@ -75,6 +75,8 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
             } else if (exercise != null) {
               context.read<ExerciseProvider>().insertExercise(exercise!);
             }
+            // Unselect all exercises
+            context.read<ExerciseProvider>().unselectAllExercises();
             // Close
             Navigator.pop(context);
           },
@@ -238,5 +240,3 @@ class _AddOrEditExercisePageState extends State<AddOrEditExercisePage> {
     }
   }
 }
-
-// TODO Make this page responsive!
