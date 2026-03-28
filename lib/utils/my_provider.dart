@@ -96,6 +96,15 @@ class ExerciseProvider extends ChangeNotifier {
     exercises[position].isSelected = select;
     notifyListeners();
   }
+
+  // Unselect all exercises at once
+  void unselectAllExercises() {
+    int itemCount = exercises.length;
+    for (int i = 0; i < itemCount; i++) {
+      exercises[i].isSelected = false;
+    }
+    notifyListeners();
+  }
 }
 
 class ScreenTypeProvider extends ChangeNotifier {
