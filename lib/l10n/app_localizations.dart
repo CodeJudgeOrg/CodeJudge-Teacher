@@ -101,6 +101,12 @@ abstract class AppLocalizations {
   /// **'Submissions'**
   String get submissions;
 
+  /// No description provided for @submissionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Submission by'**
+  String get submissionTitle;
+
   /// No description provided for @exercises.
   ///
   /// In en, this message translates to:
@@ -136,6 +142,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Edit'**
   String get menuEditExercise;
+
+  /// No description provided for @selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Selection'**
+  String get selection;
 
   /// No description provided for @addExercise.
   ///
@@ -202,12 +214,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hint:'**
   String get hintEnterHint;
-
-  /// No description provided for @submissionTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Submission by'**
-  String get submissionTitle;
 
   /// No description provided for @settings.
   ///

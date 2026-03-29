@@ -3,12 +3,15 @@
 
   "submissions":"Abgaben",
 
+  "submissionTitle": "Abgabe von",
+
   "exercises": "Übungen",
   "noteDifficultyLevel": "Schwierigkeitsgrad: ",
   "newExercise": "Neu",
   "deleteExercise": "Löschen",
   "selectExercise": "Auswählen",
   "menuEditExercise": "Bearbeiten",
+  "selection": "Auswahl",
 
   "addExercise": "Neue Übung hinzufügen",
   "editExercise": "Eine Übung bearbeiten",
@@ -21,8 +24,6 @@
   "mediumLevel": "Fortgeschrittener",
   "difficultLevel":"Profi",
   "hintEnterHint": "Hinweis:",
-
-  "submissionTitle": "Abgabe von",
 
   "settings": "Einstellungen",
   "themeMode": "Modus des Themas:",

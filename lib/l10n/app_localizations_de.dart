@@ -12,6 +12,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get submissions => 'Abgaben';
 
   @override
+  String get submissionTitle => 'Abgabe von';
+
+  @override
   String get exercises => 'Übungen';
 
   @override
@@ -28,6 +31,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get menuEditExercise => 'Bearbeiten';
+
+  @override
+  String get selection => 'Auswahl';
 
   @override
   String get addExercise => 'Neue Übung hinzufügen';
@@ -61,9 +67,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get hintEnterHint => 'Hinweis:';
-
-  @override
-  String get submissionTitle => 'Abgabe von';
 
   @override
   String get settings => 'Einstellungen';

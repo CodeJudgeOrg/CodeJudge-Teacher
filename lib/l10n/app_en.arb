@@ -3,12 +3,15 @@
 
   "submissions":"Submissions",
 
+  "submissionTitle": "Submission by",
+
   "exercises": "Exercises",
   "noteDifficultyLevel": "Level of difficulty: ",
   "newExercise": "New",
   "deleteExercise": "Delete",
   "selectExercise": "Select",
   "menuEditExercise": "Edit",
+  "selection": "Selection",
 
   "addExercise": "Add a new exercise",
   "editExercise": "Edit an exercise",
@@ -21,8 +24,6 @@
   "mediumLevel": "Intermediate",
   "difficultLevel":"Professional",
   "hintEnterHint": "Hint:",
-
-  "submissionTitle": "Submission by",
 
   "settings": "Settings",
   "themeMode": "Theme Mode:",
