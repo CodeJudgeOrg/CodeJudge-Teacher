@@ -60,6 +60,7 @@ class MobileExercisePage extends StatelessWidget{
     final appLocalizations = AppLocalizations.of(context)!;
     // Get and store all exercises
     final exercises = context.watch<ExerciseProvider>().exercises;
+    bool showSelectionBar = context.watch<ExerciseProvider>().showSelectionBar;
 
     return Scaffold(
       // Display a list of exercises
@@ -100,17 +101,40 @@ class MobileExercisePage extends StatelessWidget{
           );
         },
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.add_rounded),
-        label: Text(appLocalizations.newExercise), // New
-        onPressed: () async {
-          // Insert a new exercise to the db
-          int? id = await CodeJudgeTeacherDB().insertNewExercise();
-          if (id != null) {
-            // Open a page to add a new exercise
-            Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(isEditingAnExercise: false, id: id)));
-          }
-        },
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          // Button to upload the exercises
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 250),
+            child: showSelectionBar
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FloatingActionButton.small(
+                    heroTag: "shareButton",
+                    onPressed: () {
+                      // TODO: Upload to the server
+                    },
+                    child: Icon(Icons.upload_file_outlined),
+                  ),
+                )
+              : SizedBox.shrink(),
+          ),
+          // Button to add a new exercise
+          FloatingActionButton.extended(
+            icon: Icon(Icons.add_rounded),
+            label: Text(appLocalizations.newExercise), // New
+            onPressed: () async {
+              // Insert a new exercise to the db
+              int? id = await CodeJudgeTeacherDB().insertNewExercise();
+              if (id != null) {
+                // Open a page to add a new exercise
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(isEditingAnExercise: false, id: id)));
+              }
+            },
+          ),
+        ],
       ),
     );
   }
