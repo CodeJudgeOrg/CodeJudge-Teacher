@@ -5,6 +5,7 @@ import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/pages/add_or_edit_exercise_page.dart';
 import 'package:code_judge_teacher/pages/settings_page.dart';
 import 'package:code_judge_teacher/pages/view_submission_page.dart';
+import 'package:code_judge_teacher/ui-elements/selection_app_bar.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/global_variables_and_functions.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
@@ -62,6 +63,8 @@ class DesktopExercisePage extends StatelessWidget{
     final exercises = context.watch<ExerciseProvider>().exercises;
 
     return Scaffold(
+      // If an exercise is selected display an AppBar and animate it
+      appBar: SelectionAppBar(),
       // Display a list of exercises
       body: GridView.count(
         crossAxisCount: 5,
@@ -96,9 +99,8 @@ class DesktopExercisePage extends StatelessWidget{
                 showContextMenu(context, position, exercise.id, index);
               },
               onLongPress: (value) {
-                // Select this exercise
+                // Select this exercise and display the AppBar
                 context.read<ExerciseProvider>().toggleSelectionOfExercise(index, true);
-                // TODO Send button => Send them
               },
             );
           }

@@ -5,6 +5,7 @@ import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/pages/add_or_edit_exercise_page.dart';
 import 'package:code_judge_teacher/pages/settings_page.dart';
 import 'package:code_judge_teacher/pages/view_submission_page.dart';
+import 'package:code_judge_teacher/ui-elements/selection_app_bar.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/global_variables_and_functions.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
@@ -63,6 +64,7 @@ class TabletExercisePage extends StatelessWidget{
     final exercises = context.watch<ExerciseProvider>().exercises;
 
     return Scaffold(
+      appBar: SelectionAppBar(),
       // Display a list of exercises
       body: GridView.count(
         crossAxisCount: 3,
