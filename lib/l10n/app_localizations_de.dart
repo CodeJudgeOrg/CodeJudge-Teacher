@@ -27,6 +27,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get selectExercise => 'Auswählen';
 
   @override
+  String get menuEditExercise => 'Bearbeiten';
+
+  @override
   String get addExercise => 'Neue Übung hinzufügen';
 
   @override

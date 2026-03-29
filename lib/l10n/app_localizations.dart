@@ -131,6 +131,12 @@ abstract class AppLocalizations {
   /// **'Select'**
   String get selectExercise;
 
+  /// No description provided for @menuEditExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get menuEditExercise;
+
   /// No description provided for @addExercise.
   ///
   /// In en, this message translates to:
