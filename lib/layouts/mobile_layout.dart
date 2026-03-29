@@ -107,18 +107,36 @@ class MobileExercisePage extends StatelessWidget{
         children: [
           // Button to upload the exercises
           AnimatedSwitcher(
-            duration: Duration(milliseconds: 250),
+            duration: Duration(milliseconds: 1000),
             child: showSelectionBar
               ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FloatingActionButton.small(
-                    heroTag: "shareButton",
-                    onPressed: () {
-                      // TODO: Upload to the server
-                    },
-                    child: Icon(Icons.upload_file_outlined),
-                  ),
-                )
+                padding: const EdgeInsets.only(bottom: 12, right: 8.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  spacing: 6.0,
+                  children: [
+                    // Button to upload the exercises to the server
+                    FloatingActionButton.small(
+                      heroTag: "shareButton",
+                      onPressed: () {
+                        // TODO: Upload to the server
+                      },
+                      child: Icon(Icons.upload_file_outlined),
+                    ),
+                    // Button to delete all selected exercises
+                    FloatingActionButton.small(
+                      heroTag: "deleteButton",
+                      onPressed: () async {
+                        // Delete the selected exercises
+                        await CodeJudgeTeacherDB().deleteExercises(context.read<ExerciseProvider>().exercises);
+                        context.read<ExerciseProvider>().deleteSelectedExercises();
+                      },
+                      child: Icon(Icons.delete_forever_outlined),
+                    ),
+                  ],
+                ),
+              )
               : SizedBox.shrink(),
           ),
           // Button to add a new exercise

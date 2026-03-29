@@ -1,4 +1,5 @@
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
+import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,12 +27,20 @@ class SelectionAppBar extends StatelessWidget implements PreferredSizeWidget{
               icon: Icon(Icons.deselect_outlined),
             ),
             actions: [
-              // TODO: Button to delete all selected exercises
               IconButton(
                 onPressed: () {
                   // TODO Upload all selected exercises to the server
                 },
                 icon: Icon(Icons.upload_file_outlined),
+              ),
+              // Button to delete all selected exercises
+              IconButton(
+                onPressed: () async {
+                  // Delete the selected exercises
+                  await CodeJudgeTeacherDB().deleteExercises(context.read<ExerciseProvider>().exercises);
+                  context.read<ExerciseProvider>().deleteSelectedExercises();
+                },
+                icon: Icon(Icons.delete_forever_outlined),
               ),
             ],
           )
