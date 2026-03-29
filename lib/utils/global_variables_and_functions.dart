@@ -2,6 +2,7 @@ library;
 
 import 'package:code_judge_library/code_judge_navigation_bar.dart';
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
+import 'package:code_judge_teacher/pages/add_or_edit_exercise_page.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:flutter/material.dart';
@@ -34,23 +35,31 @@ void showContextMenu(BuildContext context, Offset position, int id, int itemPosi
     items: [
       PopupMenuItem(
         value: 1,
-        child: Text(appLocalizations.deleteExercise), // "Delete"
+        child: Text(appLocalizations.selectExercise), // "Select"
       ),
       PopupMenuItem(
         value: 2,
-        child: Text(appLocalizations.selectExercise), // "Select"
+        child: Text(appLocalizations.menuEditExercise), // "Edit"
+      ),
+      PopupMenuItem(
+        value: 3,
+        child: Text(appLocalizations.deleteExercise), // "Delete"
       ),
     ]
   ).then((value) {
     switch (value) {
       case 1:
+        // Select exercises
+        context.read<ExerciseProvider>().toggleSelectionOfExercise(itemPosition, true);
+        break;
+      case 2:
+        // Open the editor
+        Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(id: id, isEditingAnExercise: true, position: itemPosition)));
+        break;
+      case 3:
         // Delete an exercise
         db.deleteExercise(id);
         context.read<ExerciseProvider>().deleteExercise(id);
-        break;
-      case 2:
-        // Select exercises
-        context.read<ExerciseProvider>().toggleSelectionOfExercise(itemPosition, true);
         break;
     }
   });
