@@ -192,6 +192,22 @@ class CodeJudgeTeacherDB {
       logger.e("Error: Couldn't delete the exercise (Code -3)\nid: $id \n\n$e");
     }
   }
+  // Delete a list of exercises
+  Future<void> deleteExercises(List<ExerciseDatamodel> exercises) async {
+    final db = await code_judge_teacher_db;
+    try {
+      int exerciseCount = exercises.length;
+      // Delete every selected exercise
+      for (var i = 0; i < exerciseCount; i++) {
+        if (exercises[i].isSelected) {
+          await db.rawDelete("DELETE FROM ${ExerciseTable.table} WHERE ${ExerciseTable.id} = ?", [exercises[i].id]);
+          logger.i("Exercise successfully deleted!");
+        }
+      }
+    } catch (e) {
+      logger.e("Error: Couldn't delete the exercises (Code -4)\n\n$e");
+    }
+  }
 }
 
 // ##########################################################################################
