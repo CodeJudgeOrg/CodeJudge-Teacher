@@ -66,6 +66,7 @@ class SettingsController extends ChangeNotifier {
 // Store and update the displayed list of exercises
 class ExerciseProvider extends ChangeNotifier {
   List<ExerciseDatamodel> exercises = [];
+  bool showSelectionBar = false;
 
   // Insert an exercise
   void insertExercise(ExerciseDatamodel exercise) {
@@ -94,6 +95,17 @@ class ExerciseProvider extends ChangeNotifier {
   // Select or unselect an exercise
   void toggleSelectionOfExercise(int position, bool select) {
     exercises[position].isSelected = select;
+
+    if (select) {
+      // Show the AppBar
+      showSelectionBar = true;
+    } else {
+      // If no other exercise is selected, hide the AppBar
+      if (!exercises.any((exercise) => exercise.isSelected == true)) {
+        showSelectionBar = false;
+      }
+    }
+
     notifyListeners();
   }
 
@@ -103,10 +115,14 @@ class ExerciseProvider extends ChangeNotifier {
     for (int i = 0; i < itemCount; i++) {
       exercises[i].isSelected = false;
     }
+    // Hide the AppBar
+    showSelectionBar = false;
+
     notifyListeners();
   }
 }
 
+// Update the layout of all pages depending on the screen size
 class ScreenTypeProvider extends ChangeNotifier {
   ScreenType screenType = ScreenType.tablet;
 
