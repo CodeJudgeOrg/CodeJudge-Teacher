@@ -92,6 +92,13 @@ class ExerciseProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Delete selected exercises
+  void deleteSelectedExercises() {
+    exercises.removeWhere((item) => item.isSelected == true);
+    showSelectionBar = false;
+    notifyListeners();
+  }
+
   // Select or unselect an exercise
   void toggleSelectionOfExercise(int position, bool select) {
     exercises[position].isSelected = select;
