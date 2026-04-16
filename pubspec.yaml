@@ -34,8 +34,8 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
-  shared_preferences: ^2.5.4
+  cupertino_icons: ^1.0.9
+  shared_preferences: ^2.5.5
   provider: ^6.1.5+1
   flutter_localizations:
     sdk: flutter
@@ -49,7 +49,7 @@ dependencies:
   code_judge_library:
     git:
       url: https://github.com/CodeJudgeOrg/CodeJudge-Library
-      #ref: v.1.0.0
+      ref: v.1.0.1
 
 dev_dependencies:
   flutter_test:
