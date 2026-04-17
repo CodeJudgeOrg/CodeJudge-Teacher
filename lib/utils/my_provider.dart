@@ -127,6 +127,21 @@ class ExerciseProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  // Get a list of selected exercises
+  List<ExerciseDatamodel> getSelectedExercises() {
+    int itemCount = exercises.length;
+    List<ExerciseDatamodel> selected = [];
+
+    // Loop through all exercises and pick evry selected one
+    for (var i = 0; i < itemCount; i++) {
+      if (exercises[i].isSelected) {
+        selected.add(exercises[i]);
+      }
+    }
+
+    return selected;
+  }
 }
 
 // Update the layout of all pages depending on the screen size
