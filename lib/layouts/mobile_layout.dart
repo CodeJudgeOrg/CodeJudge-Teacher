@@ -117,6 +117,15 @@ class MobileExercisePage extends StatelessWidget{
                   crossAxisAlignment: CrossAxisAlignment.end,
                   spacing: 6.0,
                   children: [
+                    // Button to deselect all exercises
+                    FloatingActionButton.small(
+                      heroTag: "deselectButton",
+                      onPressed: () {
+                        // Deselect all exercises
+                        context.read<ExerciseProvider>().unselectAllExercises();
+                      },
+                      child: Icon(Icons.close_outlined)
+                    ),
                     // Button to upload the exercises to the server
                     FloatingActionButton.small(
                       heroTag: "shareButton",
