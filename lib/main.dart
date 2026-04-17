@@ -1,4 +1,4 @@
-import 'package:code_judge_library/exercise_datamodel.dart';
+import 'package:code_judge_library/datamodels.dart';
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/layouts/desktop_layout.dart';
 import 'package:code_judge_teacher/layouts/mobile_layout.dart';

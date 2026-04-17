@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:code_judge_library/exercise_datamodel.dart';
+import 'package:code_judge_library/datamodels.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:path/path.dart';

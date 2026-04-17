@@ -1,4 +1,4 @@
-import 'package:code_judge_library/exercise_datamodel.dart';
+import 'package:code_judge_library/datamodels.dart';
 import 'package:code_judge_teacher/utils/screen_type_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

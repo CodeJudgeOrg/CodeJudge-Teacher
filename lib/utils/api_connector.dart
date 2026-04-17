@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:code_judge_library/exercise_datamodel.dart';
+import 'package:code_judge_library/datamodels.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
