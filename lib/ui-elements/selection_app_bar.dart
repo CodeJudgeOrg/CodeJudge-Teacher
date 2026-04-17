@@ -1,4 +1,5 @@
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
+import 'package:code_judge_teacher/utils/api_connector.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +25,13 @@ class SelectionAppBar extends StatelessWidget implements PreferredSizeWidget{
               onPressed: () {
                 context.read<ExerciseProvider>().unselectAllExercises();
               },
-              icon: Icon(Icons.deselect_outlined),
+              icon: Icon(Icons.close_outlined),
             ),
             actions: [
               IconButton(
                 onPressed: () {
                   // TODO Upload all selected exercises to the server
+                  ApiConnector().uploadExercises(context);
                 },
                 icon: Icon(Icons.upload_file_outlined),
               ),

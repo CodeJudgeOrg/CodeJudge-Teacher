@@ -5,6 +5,7 @@ import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/pages/add_or_edit_exercise_page.dart';
 import 'package:code_judge_teacher/pages/settings_page.dart';
 import 'package:code_judge_teacher/pages/view_submission_page.dart';
+import 'package:code_judge_teacher/utils/api_connector.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/global_variables_and_functions.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
@@ -120,7 +121,8 @@ class MobileExercisePage extends StatelessWidget{
                     FloatingActionButton.small(
                       heroTag: "shareButton",
                       onPressed: () {
-                        // TODO: Upload to the server
+                        // Upload to the server
+                        ApiConnector().uploadExercises(context);
                       },
                       child: Icon(Icons.upload_file_outlined),
                     ),
