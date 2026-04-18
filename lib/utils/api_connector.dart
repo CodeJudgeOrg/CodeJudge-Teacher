@@ -12,11 +12,11 @@ class ApiConnector {
     factory ApiConnector() => instance;
     ApiConnector.internal();
 
-    final String baseURL = "http://127.0.0.1:8000";
+    final String baseURL = "http://127.0.0.1:8000/teacher";
 
     // Upload a list of exercises
     void uploadExercises(BuildContext context) async {
-        final url = Uri.parse("$baseURL/teacher/uploadExercises");
+        final url = Uri.parse("$baseURL/uploadExercises");
 
         final List<ExerciseDatamodel> exercises = context.read<ExerciseProvider>().getSelectedExercises();
         final List<Map<String, dynamic>> exercises2 = [];
@@ -42,6 +42,25 @@ class ApiConnector {
 
         // Log the result
         print("Status: ${response.statusCode}\nBody: ${response.body}");
+    }
+
+    // Download all submissions and update the list
+    void receiveSubmissions(BuildContext context) async {
+        final url = Uri.parse("$baseURL/receiveSubmissions");
+
+        final response = await http.get(url);
+        List<dynamic> decodedResponse = jsonDecode(response.body);
+        final List<SubmissionDatamodel> submissions = decodedResponse.map((item) {
+            return SubmissionDatamodel(
+                exerciseName: item["exerciseName"],
+                task: item["task"],
+                code: item["code"],
+                output: item["output"],
+                studentName: item["studentName"]
+            );
+        }).toList();
+
+        context.read<SubmissionProvider>().refreshSubmissions(submissions);
     }
 }
 
