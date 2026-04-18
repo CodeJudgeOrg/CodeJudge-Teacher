@@ -3,6 +3,7 @@ import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/layouts/desktop_layout.dart';
 import 'package:code_judge_teacher/layouts/mobile_layout.dart';
 import 'package:code_judge_teacher/layouts/tablet_layout.dart';
+import 'package:code_judge_teacher/utils/api_connector.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:code_judge_teacher/utils/screen_type_handler.dart';
@@ -12,6 +13,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   final exerciseProvider = ExerciseProvider();
+  final submissionProvider = SubmissionProvider();
   final screenTypeProvider = ScreenTypeProvider();
   // Load the settings
   final settingsProvider = SettingsController();
@@ -21,6 +23,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => screenTypeProvider),
         ChangeNotifierProvider(create: (_) => exerciseProvider),
+        ChangeNotifierProvider(create: (_) => submissionProvider),
         ChangeNotifierProvider(create: (_) => settingsProvider),
       ],
       child: const MyApp(),
@@ -49,6 +52,9 @@ class MyApp extends StatelessWidget {
 
     // Load the exercises from the DB
     getExercises(context);
+
+    // Load the submissions
+    ApiConnector().receiveSubmissions(context);
 
     return ScreenTypeHandler(
       child: MaterialApp(
