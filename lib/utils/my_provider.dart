@@ -144,6 +144,17 @@ class ExerciseProvider extends ChangeNotifier {
   }
 }
 
+// Store and update the displayed list of submissions
+class SubmissionProvider extends ChangeNotifier {
+  List<SubmissionDatamodel> submissions = [];
+
+  // Refresh all submissions
+  void refreshSubmissions(List<SubmissionDatamodel> newSubmissions) {
+    submissions..clear()..addAll(newSubmissions);
+    notifyListeners();
+  }
+}
+
 // Update the layout of all pages depending on the screen size
 class ScreenTypeProvider extends ChangeNotifier {
   ScreenType screenType = ScreenType.tablet;
