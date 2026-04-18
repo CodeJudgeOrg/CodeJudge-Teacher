@@ -170,37 +170,29 @@ class MobileExercisePage extends StatelessWidget{
 }
 
 class MobileSubmissionPage extends StatelessWidget{
-  MobileSubmissionPage({super.key});
-
-  final List<ExerciseDatamodel> items = [
-    ExerciseDatamodel(id: 1, name: "Abgabe1", description: "Test1", task: "task", solution: "solution", difficultyLevel: 1),
-    ExerciseDatamodel(id: 2, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodel(id: 3, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodel(id: 4, name: "Test2", description: "Test2", task: "task", solution: "solution", difficultyLevel: 2),
-    ExerciseDatamodel(id: 5, name: "Test3", description: "Test3", task: "task", solution: "solution", difficultyLevel: 3),
-  ];
+  const MobileSubmissionPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
+    final List<SubmissionDatamodel> submissions = context.watch<SubmissionProvider>().submissions;
 
     return Scaffold(
       // Display a list of exercises
       body: ListView.separated(
         padding: const EdgeInsets.all(8),
-        itemCount: items.length,
+        itemCount: submissions.length,
         separatorBuilder: (context, index) => const SizedBox(height: 8),
         itemBuilder: (context, index) {
           return CodeJudgeMobileItem(
-            title: items[index].name,
-            note: appLocalizations.noteDifficultyLevel + items[index].difficultyLevel.toString(),
+            title: submissions[index].exerciseName,
+            note: submissions[index].studentName,
             onTap: (){
               // Display the submission
               Navigator.push(context, MaterialPageRoute(builder: (builder) => ViewSubmissionPage(
-                task: "Test",
-                submission: "Test",
-                studentName: "FR"
-              ))); // TODO: Provide the correct values
+                task: submissions[index].task,
+                submission: submissions[index].code,
+                studentName: submissions[index].studentName
+              ))); // TODO: Use all values
             }
           );
         },

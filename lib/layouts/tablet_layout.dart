@@ -137,7 +137,7 @@ class TabletSubmissionPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
+    final List<SubmissionDatamodel> submissions = context.watch<SubmissionProvider>().submissions;
 
     return Scaffold(
       // Display a list of exercises
@@ -147,18 +147,18 @@ class TabletSubmissionPage extends StatelessWidget{
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
         children: List.generate(
-          items.length,
+          submissions.length,
           (index) {
             return CodeJudgeDesktopAndTabletItem(
-              title: items[index].name,
-              note: appLocalizations.noteDifficultyLevel + items[index].difficultyLevel.toString(),
+              title: submissions[index].exerciseName,
+              note: submissions[index].studentName,
               onTap: (){
                 // Display the submission
                 Navigator.push(context, MaterialPageRoute(builder: (builder) => ViewSubmissionPage(
-                  task: "Test",
-                  submission: "Test",
-                  studentName: "FR"
-                ))); // TODO: Provide the correct values
+                  task: submissions[index].task,
+                  submission: submissions[index].code,
+                  studentName: submissions[index].studentName
+                ))); // // TODO: Use all values
               }
             );
           }
