@@ -12,6 +12,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get submissions => 'Submissions';
 
   @override
+  String get syncButton => 'Synchronise';
+
+  @override
   String get submissionTitle => 'Submission by';
 
   @override

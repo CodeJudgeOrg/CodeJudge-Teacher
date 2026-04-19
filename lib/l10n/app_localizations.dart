@@ -101,6 +101,12 @@ abstract class AppLocalizations {
   /// **'Submissions'**
   String get submissions;
 
+  /// No description provided for @syncButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Synchronise'**
+  String get syncButton;
+
   /// No description provided for @submissionTitle.
   ///
   /// In en, this message translates to:

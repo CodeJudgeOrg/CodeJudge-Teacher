@@ -12,6 +12,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get submissions => 'Abgaben';
 
   @override
+  String get syncButton => 'Synchronisieren';
+
+  @override
   String get submissionTitle => 'Abgabe von';
 
   @override
