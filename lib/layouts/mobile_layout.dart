@@ -174,6 +174,7 @@ class MobileSubmissionPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
     final List<SubmissionDatamodel> submissions = context.watch<SubmissionProvider>().submissions;
 
     return Scaffold(
@@ -195,6 +196,15 @@ class MobileSubmissionPage extends StatelessWidget{
               ))); // TODO: Use all values
             }
           );
+        },
+        
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.sync_rounded),
+        label: Text(appLocalizations.syncButton), // Syncronise
+        onPressed: () {
+          // Update the list
+          ApiConnector().receiveSubmissions(context);
         },
       ),
     );
