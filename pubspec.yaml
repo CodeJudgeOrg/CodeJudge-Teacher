@@ -47,9 +47,10 @@ dependencies:
   logger: ^2.0.2
   path_provider: ^2.1.5
   code_judge_library:
+    #path: ../CodeJudge-Library
     git:
       url: https://github.com/CodeJudgeOrg/CodeJudge-Library
-      ref: v.1.1.0
+      ref: v.1.1.1
   http: ^1.6.0
 dev_dependencies:
   flutter_test:

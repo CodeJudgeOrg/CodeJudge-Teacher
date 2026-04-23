@@ -77,8 +77,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v.1.1.0"
-      resolved-ref: "24589a569608b3759121f9e7193967116a1244b7"
+      ref: "v.1.1.1"
+      resolved-ref: "7bf4093f182acb2f32bbd4b9af75a39fc866b0d9"
       url: "https://github.com/CodeJudgeOrg/CodeJudge-Library"
     source: git
     version: "1.0.0"
