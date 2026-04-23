@@ -1,3 +1,4 @@
+import 'package:code_judge_library/code_judge_button_menu.dart';
 import 'package:code_judge_library/code_judge_list_items.dart';
 import 'package:code_judge_library/code_judge_navigation_bar.dart';
 import 'package:code_judge_library/datamodels.dart';
@@ -61,7 +62,6 @@ class MobileExercisePage extends StatelessWidget{
     final appLocalizations = AppLocalizations.of(context)!;
     // Get and store all exercises
     final exercises = context.watch<ExerciseProvider>().exercises;
-    bool showSelectionBar = context.watch<ExerciseProvider>().showSelectionBar;
 
     return Scaffold(
       // Display a list of exercises
@@ -102,68 +102,25 @@ class MobileExercisePage extends StatelessWidget{
           );
         },
       ),
-      floatingActionButton: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          // Button to upload the exercises
-          AnimatedSwitcher(
-            duration: Duration(milliseconds: 1000),
-            child: showSelectionBar
-              ? Padding(
-                padding: const EdgeInsets.only(bottom: 12, right: 8.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  spacing: 6.0,
-                  children: [
-                    // Button to deselect all exercises
-                    FloatingActionButton.small(
-                      heroTag: "deselectButton",
-                      onPressed: () {
-                        // Deselect all exercises
-                        context.read<ExerciseProvider>().unselectAllExercises();
-                      },
-                      child: Icon(Icons.close_outlined)
-                    ),
-                    // Button to upload the exercises to the server
-                    FloatingActionButton.small(
-                      heroTag: "shareButton",
-                      onPressed: () {
-                        // Upload to the server
-                        ApiConnector().uploadExercises(context);
-                      },
-                      child: Icon(Icons.upload_file_outlined),
-                    ),
-                    // Button to delete all selected exercises
-                    FloatingActionButton.small(
-                      heroTag: "deleteButton",
-                      onPressed: () async {
-                        // Delete the selected exercises
-                        await CodeJudgeTeacherDB().deleteExercises(context.read<ExerciseProvider>().exercises);
-                        context.read<ExerciseProvider>().deleteSelectedExercises();
-                      },
-                      child: Icon(Icons.delete_forever_outlined),
-                    ),
-                  ],
-                ),
-              )
-              : SizedBox.shrink(),
-          ),
-          // Button to add a new exercise
-          FloatingActionButton.extended(
-            icon: Icon(Icons.add_rounded),
-            label: Text(appLocalizations.newExercise), // New
-            onPressed: () async {
-              // Insert a new exercise to the db
-              int? id = await CodeJudgeTeacherDB().insertNewExercise();
-              if (id != null) {
-                // Open a page to add a new exercise
-                Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(isEditingAnExercise: false, id: id)));
-              }
-            },
-          ),
-        ],
+      floatingActionButton: CodeJudgeButtonMenu(
+        show: context.watch<ExerciseProvider>().showSelectionBar,
+        icon: Icons.add_rounded,
+        label: appLocalizations.newExercise, // "New"
+        onDeselectPressed: () => context.read<ExerciseProvider>().unselectAllExercises(), // Unselect all selected exercises
+        onUploadPressed: () => ApiConnector().uploadExercises(context), // Upload all selected exercises
+        onDeletePressed: () async {
+          // Delete the selected exercises
+          await CodeJudgeTeacherDB().deleteExercises(context.read<ExerciseProvider>().exercises);
+          context.read<ExerciseProvider>().deleteSelectedExercises();
+        },
+        onButtonPressed: () async {
+          // Insert a new exercise to the db
+          int? id = await CodeJudgeTeacherDB().insertNewExercise();
+          if (id != null) {
+            // Open a page to add a new exercise
+            Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(isEditingAnExercise: false, id: id)));
+          }
+        }
       ),
     );
   }
