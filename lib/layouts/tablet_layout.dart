@@ -1,11 +1,11 @@
 import 'package:code_judge_library/code_judge_list_items.dart';
 import 'package:code_judge_library/code_judge_navigation_bar.dart';
+import 'package:code_judge_library/code_judge_selection_app_bar.dart';
 import 'package:code_judge_library/datamodels.dart';
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/pages/add_or_edit_exercise_page.dart';
 import 'package:code_judge_teacher/pages/settings_page.dart';
 import 'package:code_judge_teacher/pages/view_submission_page.dart';
-import 'package:code_judge_teacher/ui-elements/selection_app_bar.dart';
 import 'package:code_judge_teacher/utils/api_connector.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/global_variables_and_functions.dart';
@@ -65,7 +65,17 @@ class TabletExercisePage extends StatelessWidget{
     final exercises = context.watch<ExerciseProvider>().exercises;
 
     return Scaffold(
-      appBar: SelectionAppBar(),
+      appBar: CodeJudgeSelectionAppBar(
+        show: context.watch<ExerciseProvider>().showSelectionBar,
+        title: appLocalizations.selection, // "Selection"
+        onClosePressed: () => context.read<ExerciseProvider>().unselectAllExercises(), // Unselect all exercises
+        onUploadPressed: () => ApiConnector().uploadExercises(context), // Upload the selected exercises
+        onDeletePressed: () async {
+          // Delete the selected exercises
+          await CodeJudgeTeacherDB().deleteExercises(context.read<ExerciseProvider>().exercises);
+          context.read<ExerciseProvider>().deleteSelectedExercises();
+        }
+      ),
       // Display a list of exercises
       body: GridView.count(
         crossAxisCount: 3,
@@ -102,7 +112,6 @@ class TabletExercisePage extends StatelessWidget{
               onLongPress: (value) {
                 // Select this exercise
                 context.read<ExerciseProvider>().toggleSelectionOfExercise(index, true);
-                // TODO Send button => Send them
               },
             );
           }
