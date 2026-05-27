@@ -40,6 +40,9 @@ class ApiConnector {
             body: jsonEncode(exercises2)
         );
 
+        // Unselect all exercises
+        context.read<ExerciseProvider>().unselectAllExercises();
+
         // Log the result
         print("Status: ${response.statusCode}\nBody: ${response.body}");
     }
@@ -54,7 +57,7 @@ class ApiConnector {
             return SubmissionDatamodel(
                 exerciseName: item["exerciseName"],
                 task: item["task"],
-                code: item["code"],
+                code: utf8.decode(base64Decode(item["code"])),
                 output: item["output"],
                 studentName: item["studentName"]
             );
