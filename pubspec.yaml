@@ -50,7 +50,7 @@ dependencies:
     #path: ../CodeJudge-Library
     git:
       url: https://github.com/CodeJudgeOrg/CodeJudge-Library
-      ref: v.1.1.1
+      ref: v.1.1.2
   http: ^1.6.0
 dev_dependencies:
   flutter_test:

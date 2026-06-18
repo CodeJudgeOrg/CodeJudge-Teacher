@@ -163,6 +163,7 @@ class TabletSubmissionPage extends StatelessWidget{
             return CodeJudgeDesktopAndTabletItem(
               title: submissions[index].exerciseName,
               note: submissions[index].studentName,
+              showMenu: false,
               onTap: (){
                 // Display the submission
                 Navigator.push(context, MaterialPageRoute(builder: (builder) => ViewSubmissionPage(
