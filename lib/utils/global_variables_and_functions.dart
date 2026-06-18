@@ -3,6 +3,7 @@ library;
 import 'package:code_judge_library/code_judge_navigation_bar.dart';
 import 'package:code_judge_teacher/l10n/app_localizations.dart';
 import 'package:code_judge_teacher/pages/add_or_edit_exercise_page.dart';
+import 'package:code_judge_teacher/utils/api_connector.dart';
 import 'package:code_judge_teacher/utils/code_judge_teacher_db.dart';
 import 'package:code_judge_teacher/utils/my_provider.dart';
 import 'package:flutter/material.dart';
@@ -49,14 +50,18 @@ void showContextMenu(BuildContext context, Offset position, int id, int itemPosi
   ).then((value) {
     switch (value) {
       case 1:
-        // Select exercises
+        // Upload exercise
+        context.read<ExerciseProvider>().toggleSelectionOfExercise(itemPosition, true);
+        ApiConnector().uploadExercises(context);
+      case 2:
+        // Select an exercise
         context.read<ExerciseProvider>().toggleSelectionOfExercise(itemPosition, true);
         break;
-      case 2:
+      case 3:
         // Open the editor
         Navigator.push(context, MaterialPageRoute(builder: (context) => AddOrEditExercisePage(id: id, isEditingAnExercise: true, position: itemPosition)));
         break;
-      case 3:
+      case 4:
         // Delete an exercise
         db.deleteExercise(id);
         context.read<ExerciseProvider>().deleteExercise(id);
