@@ -27,6 +27,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newExercise => 'New';
 
   @override
+  String get uploadExercise => 'Upload';
+
+  @override
   String get deleteExercise => 'Delete';
 
   @override

@@ -131,6 +131,12 @@ abstract class AppLocalizations {
   /// **'New'**
   String get newExercise;
 
+  /// No description provided for @uploadExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload'**
+  String get uploadExercise;
+
   /// No description provided for @deleteExercise.
   ///
   /// In en, this message translates to:
