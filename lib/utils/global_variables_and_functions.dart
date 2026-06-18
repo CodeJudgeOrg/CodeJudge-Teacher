@@ -36,7 +36,7 @@ void showContextMenu(BuildContext context, Offset position, int id, int itemPosi
     items: [
       PopupMenuItem(
         value: 1,
-        child: Text("Upload"), // TODO: Translate
+        child: Text(appLocalizations.uploadExercise), // "Upload"
       ),
       PopupMenuItem(
         value: 2,
